@@ -1,0 +1,70 @@
+specification: API Commons Rate Limits
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/RateLimits
+provider: Booqable
+providerId: booqable
+created: '2026-07-03'
+modified: '2026-07-03'
+reconciled: false
+tags:
+- Rental Management
+- Inventory
+- Bookings
+- Rate Limiting
+- Quotas
+description: >-
+  The Booqable API applies request throttling and returns HTTP 429 Too Many
+  Requests ("You're doing too many requests! Slow down!") when a client exceeds
+  the allowed request rate. Booqable does not publish a fixed numeric
+  requests-per-minute figure in its v4 developer documentation; the practical
+  limit is enforced per account and observed in integrations (community reports
+  describe GET call limits that require batching and back-off). Clients should
+  implement exponential backoff on 429 responses and reduce request volume by
+  using JSON:API includes to sideload related resources and pagination to fetch
+  in pages rather than issuing many small requests.
+notes: >-
+  No exact per-minute or per-second numeric limit is documented in the public v4
+  docs as of the review date. Verify current limits with Booqable support and
+  handle 429 responses with backoff and jitter. Pagination defaults to 25
+  records per page via page[size].
+sources:
+- https://developers.booqable.com/
+- https://github.com/booqable/api-documentation
+- https://community.make.com/t/workaround-for-api-call-get-limit-booqable/20008
+responseCodes:
+  throttled: 429
+limits:
+- name: API Requests
+  scope: account
+  metric: requests
+  limit: not published (429 on exceed)
+  notes: >-
+    Booqable throttles requests per account and returns 429 when exceeded. No
+    fixed numeric rate is documented in the v4 API reference.
+- name: Pagination Page Size
+  scope: request
+  metric: records
+  limit: 25 default per page
+  notes: >-
+    Collections are paginated via page[number] and page[size]; the default page
+    size is 25 records.
+- name: Bulk Retrieval
+  scope: account
+  metric: requests
+  limit: use includes and pagination
+  notes: >-
+    High-volume reads should sideload related resources with include and page
+    through results to stay under the throttle rather than issuing many
+    single-resource requests.
+policies:
+- name: Backoff Strategy
+  description: >-
+    On a 429 response, back off and retry with exponential backoff and jitter,
+    honoring any Retry-After header if present.
+- name: Efficient Fetching
+  description: >-
+    Use JSON:API include to fetch related resources in one call and page[size]
+    to control page size, reducing total request count.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

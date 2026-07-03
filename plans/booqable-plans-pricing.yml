@@ -1,0 +1,132 @@
+specification: API Commons Plans
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/Plans
+provider: Booqable
+providerId: booqable
+created: '2026-07-03'
+modified: '2026-07-03'
+reconciled: false
+tags:
+- Rental Management
+- Inventory
+- Equipment Rental
+- Bookings
+- Plans
+description: >-
+  Booqable is sold as a SaaS subscription to the rental-management platform; the
+  API is included with every plan rather than metered or billed separately.
+  There are three published subscription tiers - Essential, Pro, and Premium -
+  each billed monthly (with discounted annual billing) and differentiated by the
+  number of included active users, feature depth, locations, and support. Every
+  plan includes a 14-day free trial, unlimited inventory and orders, and takes no
+  commission on bookings. Prices below are list monthly prices in USD and may
+  vary by billing period, region, and promotions.
+notes: >-
+  Booqable does not price API access as a separate product; the REST API (v4)
+  and webhooks are available to subscribers. Confirm current tier pricing, user
+  counts, and feature limits on the Booqable pricing page during reconciliation.
+sources:
+- https://booqable.com/pricing/
+- https://developers.booqable.com/
+- https://help.booqable.com/en/articles/4325485-how-to-create-an-api-key
+plans:
+- id: booqable-essential
+  name: Essential
+  type: paid
+  description: >-
+    For solo operators and small rental businesses that need the essentials -
+    online store, orders, inventory, and API access. Includes up to 1 active
+    user.
+  entries:
+  - label: Subscription
+    name: essential_subscription
+    type: flat
+    metric: subscription
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: 29.00
+    currency: USD
+    userMultiplied: false
+  elements:
+  - name: Online Store and Bookings
+  - name: Unlimited Inventory and Orders
+  - name: REST API (v4) Access
+  - name: Webhooks
+  - name: 1 Active User
+- id: booqable-pro
+  name: Pro
+  type: paid
+  description: >-
+    For growing teams that need advanced features and collaboration - everything
+    in Essential plus deeper reporting, integrations, and more users. Includes up
+    to 6 active users.
+  entries:
+  - label: Subscription
+    name: pro_subscription
+    type: flat
+    metric: subscription
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: 79.00
+    currency: USD
+    userMultiplied: false
+  elements:
+  - name: Everything in Essential
+  - name: Advanced Features and Reporting
+  - name: Integrations
+  - name: REST API (v4) Access
+  - name: Webhooks
+  - name: Up to 6 Active Users
+- id: booqable-premium
+  name: Premium
+  type: paid
+  description: >-
+    For larger businesses managing high volumes and multiple locations -
+    everything in Pro plus multi-location support, priority support, and higher
+    user limits. Includes up to 11 active users.
+  entries:
+  - label: Subscription
+    name: premium_subscription
+    type: flat
+    metric: subscription
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: 249.00
+    currency: USD
+    userMultiplied: false
+  elements:
+  - name: Everything in Pro
+  - name: Multiple Locations
+  - name: Priority Support
+  - name: REST API (v4) Access
+  - name: Webhooks
+  - name: Up to 11 Active Users
+- id: booqable-trial
+  name: Free Trial
+  type: free
+  description: >-
+    A 14-day free trial of the full platform, including API access, with no
+    credit card required to start.
+  entries:
+  - label: Trial Period
+    name: trial
+    type: flat
+    metric: subscription
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: free for 14 days
+    userMultiplied: false
+  elements:
+  - name: Full Platform Access
+  - name: REST API (v4) Access
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

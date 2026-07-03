@@ -1,0 +1,257 @@
+aid: booqable
+url: https://raw.githubusercontent.com/api-evangelist/booqable/refs/heads/main/apis.yml
+name: Booqable
+kind: company
+description: Booqable is equipment and inventory rental management software for rental
+  businesses - it handles online bookings, product and stock-item inventory, orders,
+  scheduling and availability, documents and invoicing, payments, and a customer-facing
+  online store. Booqable exposes a documented REST API (v4, "Boomerang") that follows
+  the JSON:API specification. Requests are directed to a company-specific host,
+  https://{company}.booqable.com/api/4, and authenticated with an access token
+  (Bearer) or a signed single-use request. A legacy v1 API remains documented. The
+  API lets developers manage orders, products, product groups, customers, stock
+  items, availability and plannings, documents, payments, and webhooks.
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+tags:
+- Rental Management
+- Inventory
+- Equipment Rental
+- Bookings
+- Orders
+- E-commerce
+- JSON:API
+created: '2026-07-03'
+modified: '2026-07-03'
+specificationVersion: '0.19'
+apis:
+- aid: booqable:booqable-orders-api
+  name: Booqable Orders API
+  tags:
+  - Orders
+  - Rentals
+  - Bookings
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://developers.booqable.com/
+  baseURL: https://{company}.booqable.com/api/4
+  properties:
+  - url: https://developers.booqable.com/
+    type: Documentation
+  - url: https://developers.booqable.com/
+    type: APIReference
+  - url: openapi/booqable-openapi.yml
+    type: OpenAPI
+  - url: collections/booqable.postman_collection.json
+    type: PostmanCollection
+  - url: collections/booqable.opencollection.json
+    type: OpenCollection
+  description: Create, list, search, fetch, and update rental orders. Start a new
+    order from a template, add products and stock, and drive the order through its
+    booking and status lifecycle. The central resource of the Booqable rental model.
+- aid: booqable:booqable-order-fulfillment-api
+  name: Booqable Order Fulfillment API
+  tags:
+  - Fulfillment
+  - Reservations
+  - Lifecycle
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://developers.booqable.com/
+  baseURL: https://{company}.booqable.com/api/4
+  properties:
+  - url: https://developers.booqable.com/
+    type: Documentation
+  - url: openapi/booqable-openapi.yml
+    type: OpenAPI
+  - url: collections/booqable.postman_collection.json
+    type: PostmanCollection
+  description: Reserve, book, start, and stop the fulfillment of order lines, and
+    move an order between statuses. Covers order fulfillments (book, specify, start,
+    stop), order status transitions, and the line items that make up an order.
+- aid: booqable:booqable-products-api
+  name: Booqable Products API
+  tags:
+  - Products
+  - Catalog
+  - Inventory
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://developers.booqable.com/
+  baseURL: https://{company}.booqable.com/api/4
+  properties:
+  - url: https://developers.booqable.com/
+    type: Documentation
+  - url: openapi/booqable-openapi.yml
+    type: OpenAPI
+  - url: collections/booqable.postman_collection.json
+    type: PostmanCollection
+  description: Manage the rentable and sellable products in the catalog - create,
+    list, search, fetch, update, and archive products, including trackable, bulk,
+    consumable, and service types with pricing and tax configuration.
+- aid: booqable:booqable-product-groups-api
+  name: Booqable Product Groups API
+  tags:
+  - Product Groups
+  - Variations
+  - Catalog
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://developers.booqable.com/
+  baseURL: https://{company}.booqable.com/api/4
+  properties:
+  - url: https://developers.booqable.com/
+    type: Documentation
+  - url: openapi/booqable-openapi.yml
+    type: OpenAPI
+  - url: collections/booqable.postman_collection.json
+    type: PostmanCollection
+  description: Manage product groups - the parent records that hold one or more
+    product variations and their shared pricing, images, and metadata. Create,
+    list, search, fetch, update, and archive product groups.
+- aid: booqable:booqable-customers-api
+  name: Booqable Customers API
+  tags:
+  - Customers
+  - CRM
+  - Contacts
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://developers.booqable.com/
+  baseURL: https://{company}.booqable.com/api/4
+  properties:
+  - url: https://developers.booqable.com/
+    type: Documentation
+  - url: openapi/booqable-openapi.yml
+    type: OpenAPI
+  - url: collections/booqable.postman_collection.json
+    type: PostmanCollection
+  description: Manage the people and companies that place rental orders - create,
+    list, search, fetch, update, and archive customers, along with their contact
+    details, addresses, tax profile, and merge fields.
+- aid: booqable:booqable-stock-items-api
+  name: Booqable Stock Items API
+  tags:
+  - Stock Items
+  - Inventory
+  - Tracking
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://developers.booqable.com/
+  baseURL: https://{company}.booqable.com/api/4
+  properties:
+  - url: https://developers.booqable.com/
+    type: Documentation
+  - url: openapi/booqable-openapi.yml
+    type: OpenAPI
+  - url: collections/booqable.postman_collection.json
+    type: PostmanCollection
+  description: Manage the individually identifiable units of trackable products -
+    create, list, fetch, and update stock items and read their plannings, plus
+    barcodes for scanning items in and out.
+- aid: booqable:booqable-availability-api
+  name: Booqable Availability API
+  tags:
+  - Availability
+  - Planning
+  - Scheduling
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://developers.booqable.com/
+  baseURL: https://{company}.booqable.com/api/4
+  properties:
+  - url: https://developers.booqable.com/
+    type: Documentation
+  - url: openapi/booqable-openapi.yml
+    type: OpenAPI
+  - url: collections/booqable.postman_collection.json
+    type: PostmanCollection
+  description: Check what inventory is available for a given period before booking -
+    query availabilities, inventory availabilities, and inventory levels by
+    location, and list the plannings that reserve inventory against orders.
+- aid: booqable:booqable-documents-api
+  name: Booqable Documents & Invoices API
+  tags:
+  - Documents
+  - Invoices
+  - Payments
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://developers.booqable.com/
+  baseURL: https://{company}.booqable.com/api/4
+  properties:
+  - url: https://developers.booqable.com/
+    type: Documentation
+  - url: openapi/booqable-openapi.yml
+    type: OpenAPI
+  - url: collections/booqable.postman_collection.json
+    type: PostmanCollection
+  description: Manage the financial documents attached to orders - invoices, quotes,
+    contracts, and packing slips - via the documents resource, and read the
+    payments and payment methods recorded against them.
+- aid: booqable:booqable-bundles-collections-api
+  name: Booqable Bundles & Collections API
+  tags:
+  - Bundles
+  - Collections
+  - Merchandising
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://developers.booqable.com/
+  baseURL: https://{company}.booqable.com/api/4
+  properties:
+  - url: https://developers.booqable.com/
+    type: Documentation
+  - url: openapi/booqable-openapi.yml
+    type: OpenAPI
+  - url: collections/booqable.postman_collection.json
+    type: PostmanCollection
+  description: Group products for merchandising and packaged rentals - manage
+    bundles and their bundle items, and organize catalog items into collections
+    for the online store.
+- aid: booqable:booqable-webhooks-api
+  name: Booqable Webhooks API
+  tags:
+  - Webhooks
+  - Events
+  - Notifications
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://developers.booqable.com/
+  baseURL: https://{company}.booqable.com/api/4
+  properties:
+  - url: https://developers.booqable.com/
+    type: Documentation
+  - url: openapi/booqable-openapi.yml
+    type: OpenAPI
+  - url: collections/booqable.postman_collection.json
+    type: PostmanCollection
+  description: Subscribe to Booqable events so external systems are notified when
+    orders, customers, products, and other resources change. Webhooks deliver
+    server-to-endpoint HTTPS POST callbacks; there is no public WebSocket transport.
+- aid: booqable:booqable-settings-api
+  name: Booqable Settings & Locations API
+  tags:
+  - Locations
+  - Tax Rates
+  - Coupons
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://developers.booqable.com/
+  baseURL: https://{company}.booqable.com/api/4
+  properties:
+  - url: https://developers.booqable.com/
+    type: Documentation
+  - url: openapi/booqable-openapi.yml
+    type: OpenAPI
+  - url: collections/booqable.postman_collection.json
+    type: PostmanCollection
+  description: Configure the account-level records that orders reference - physical
+    locations, tax rates, coupons and discounts, employees, and free-form notes on
+    any resource.
+common:
+- type: GitHubOrganization
+  url: https://github.com/booqable
+- type: LinkedIn
+  url: https://www.linkedin.com/company/booqable
+- type: Website
+  url: https://booqable.com
+- type: Documentation
+  url: https://developers.booqable.com/
+- type: Plans
+  url: plans/booqable-plans-pricing.yml
+- type: RateLimits
+  url: rate-limits/booqable-rate-limits.yml
+- type: FinOps
+  url: finops/booqable-finops.yml
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

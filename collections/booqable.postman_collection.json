@@ -1,0 +1,410 @@
+{
+  "info": {
+    "name": "Booqable API (v4 Boomerang)",
+    "description": "RESTful, JSON:API-compliant interface for Booqable equipment and inventory rental management - orders, products, product groups, customers, stock items, availability, documents, bundles, collections, and webhooks. Requests go to a company-specific host, https://{company}.booqable.com/api/4, authenticated with an access token (Bearer). Set the {{company}} and {{accessToken}} variables. Default response media type is application/vnd.api+json.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      { "key": "token", "value": "{{accessToken}}", "type": "string" }
+    ]
+  },
+  "variable": [
+    { "key": "company", "value": "your-company", "type": "string" },
+    { "key": "baseUrl", "value": "https://{{company}}.booqable.com/api/4", "type": "string" },
+    { "key": "accessToken", "value": "", "type": "string" }
+  ],
+  "item": [
+    {
+      "name": "Orders",
+      "item": [
+        {
+          "name": "List orders",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Accept", "value": "application/vnd.api+json" }],
+            "url": { "raw": "{{baseUrl}}/orders", "host": ["{{baseUrl}}"], "path": ["orders"] },
+            "description": "Lists and searches rental orders."
+          }
+        },
+        {
+          "name": "New order template",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Accept", "value": "application/vnd.api+json" }],
+            "url": { "raw": "{{baseUrl}}/orders/new", "host": ["{{baseUrl}}"], "path": ["orders", "new"] },
+            "description": "Returns a blank order resource used to start a new order."
+          }
+        },
+        {
+          "name": "Create an order",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/vnd.api+json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"data\": {\n    \"type\": \"orders\",\n    \"attributes\": {\n      \"starts_at\": \"2026-08-01T09:00:00Z\",\n      \"stops_at\": \"2026-08-03T17:00:00Z\"\n    }\n  }\n}" },
+            "url": { "raw": "{{baseUrl}}/orders", "host": ["{{baseUrl}}"], "path": ["orders"] },
+            "description": "Creates a new rental order."
+          }
+        },
+        {
+          "name": "Fetch an order",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Accept", "value": "application/vnd.api+json" }],
+            "url": { "raw": "{{baseUrl}}/orders/:id", "host": ["{{baseUrl}}"], "path": ["orders", ":id"], "variable": [{ "key": "id", "value": "" }] },
+            "description": "Retrieves a single order by ID."
+          }
+        },
+        {
+          "name": "Update an order",
+          "request": {
+            "method": "PATCH",
+            "header": [{ "key": "Content-Type", "value": "application/vnd.api+json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"data\": {\n    \"type\": \"orders\",\n    \"id\": \":id\",\n    \"attributes\": {}\n  }\n}" },
+            "url": { "raw": "{{baseUrl}}/orders/:id", "host": ["{{baseUrl}}"], "path": ["orders", ":id"], "variable": [{ "key": "id", "value": "" }] },
+            "description": "Updates an existing order."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Order Fulfillment",
+      "item": [
+        {
+          "name": "Book order lines",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/vnd.api+json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"data\": {\n    \"type\": \"order_fulfillments\",\n    \"attributes\": {\n      \"order_id\": \"\",\n      \"lines\": []\n    }\n  }\n}" },
+            "url": { "raw": "{{baseUrl}}/order_fulfillments/book", "host": ["{{baseUrl}}"], "path": ["order_fulfillments", "book"] },
+            "description": "Books products and quantities onto an order, reserving inventory."
+          }
+        },
+        {
+          "name": "Specify stock items",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/vnd.api+json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"data\": {\n    \"type\": \"order_fulfillments\",\n    \"attributes\": {}\n  }\n}" },
+            "url": { "raw": "{{baseUrl}}/order_fulfillments/specify", "host": ["{{baseUrl}}"], "path": ["order_fulfillments", "specify"] },
+            "description": "Assigns specific stock items to trackable lines on an order."
+          }
+        },
+        {
+          "name": "Start fulfillment",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/vnd.api+json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"data\": {\n    \"type\": \"order_fulfillments\",\n    \"attributes\": {}\n  }\n}" },
+            "url": { "raw": "{{baseUrl}}/order_fulfillments/start", "host": ["{{baseUrl}}"], "path": ["order_fulfillments", "start"] },
+            "description": "Starts (checks out) the assigned stock items on an order."
+          }
+        },
+        {
+          "name": "Stop fulfillment",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/vnd.api+json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"data\": {\n    \"type\": \"order_fulfillments\",\n    \"attributes\": {}\n  }\n}" },
+            "url": { "raw": "{{baseUrl}}/order_fulfillments/stop", "host": ["{{baseUrl}}"], "path": ["order_fulfillments", "stop"] },
+            "description": "Stops (checks in / returns) the started stock items on an order."
+          }
+        },
+        {
+          "name": "Transition order status",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/vnd.api+json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"data\": {\n    \"type\": \"order_status_transitions\",\n    \"attributes\": {\n      \"order_id\": \"\",\n      \"to\": \"reserved\"\n    }\n  }\n}" },
+            "url": { "raw": "{{baseUrl}}/order_status_transitions/transition", "host": ["{{baseUrl}}"], "path": ["order_status_transitions", "transition"] },
+            "description": "Moves an order to a new status."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Products",
+      "item": [
+        {
+          "name": "List products",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Accept", "value": "application/vnd.api+json" }],
+            "url": { "raw": "{{baseUrl}}/products", "host": ["{{baseUrl}}"], "path": ["products"] },
+            "description": "Lists and searches products in the catalog."
+          }
+        },
+        {
+          "name": "Create a product",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/vnd.api+json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"data\": {\n    \"type\": \"products\",\n    \"attributes\": {\n      \"name\": \"Sample Product\"\n    }\n  }\n}" },
+            "url": { "raw": "{{baseUrl}}/products", "host": ["{{baseUrl}}"], "path": ["products"] },
+            "description": "Creates a new product."
+          }
+        },
+        {
+          "name": "Fetch a product",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Accept", "value": "application/vnd.api+json" }],
+            "url": { "raw": "{{baseUrl}}/products/:id", "host": ["{{baseUrl}}"], "path": ["products", ":id"], "variable": [{ "key": "id", "value": "" }] },
+            "description": "Retrieves a single product by ID."
+          }
+        },
+        {
+          "name": "Update a product",
+          "request": {
+            "method": "PATCH",
+            "header": [{ "key": "Content-Type", "value": "application/vnd.api+json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"data\": {\n    \"type\": \"products\",\n    \"id\": \":id\",\n    \"attributes\": {}\n  }\n}" },
+            "url": { "raw": "{{baseUrl}}/products/:id", "host": ["{{baseUrl}}"], "path": ["products", ":id"], "variable": [{ "key": "id", "value": "" }] },
+            "description": "Updates an existing product. Set archived to archive it."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Product Groups",
+      "item": [
+        {
+          "name": "List product groups",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Accept", "value": "application/vnd.api+json" }],
+            "url": { "raw": "{{baseUrl}}/product_groups", "host": ["{{baseUrl}}"], "path": ["product_groups"] },
+            "description": "Lists and searches product groups."
+          }
+        },
+        {
+          "name": "Fetch a product group",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Accept", "value": "application/vnd.api+json" }],
+            "url": { "raw": "{{baseUrl}}/product_groups/:id", "host": ["{{baseUrl}}"], "path": ["product_groups", ":id"], "variable": [{ "key": "id", "value": "" }] },
+            "description": "Retrieves a single product group by ID."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Customers",
+      "item": [
+        {
+          "name": "List customers",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Accept", "value": "application/vnd.api+json" }],
+            "url": { "raw": "{{baseUrl}}/customers", "host": ["{{baseUrl}}"], "path": ["customers"] },
+            "description": "Lists and searches customers."
+          }
+        },
+        {
+          "name": "Create a customer",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/vnd.api+json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"data\": {\n    \"type\": \"customers\",\n    \"attributes\": {\n      \"name\": \"Jane Doe\",\n      \"email\": \"jane@example.com\"\n    }\n  }\n}" },
+            "url": { "raw": "{{baseUrl}}/customers", "host": ["{{baseUrl}}"], "path": ["customers"] },
+            "description": "Creates a new customer."
+          }
+        },
+        {
+          "name": "Fetch a customer",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Accept", "value": "application/vnd.api+json" }],
+            "url": { "raw": "{{baseUrl}}/customers/:id", "host": ["{{baseUrl}}"], "path": ["customers", ":id"], "variable": [{ "key": "id", "value": "" }] },
+            "description": "Retrieves a single customer by ID."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Stock Items",
+      "item": [
+        {
+          "name": "List stock items",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Accept", "value": "application/vnd.api+json" }],
+            "url": { "raw": "{{baseUrl}}/stock_items", "host": ["{{baseUrl}}"], "path": ["stock_items"] },
+            "description": "Lists the individually identifiable units of trackable products."
+          }
+        },
+        {
+          "name": "Fetch a stock item",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Accept", "value": "application/vnd.api+json" }],
+            "url": { "raw": "{{baseUrl}}/stock_items/:id", "host": ["{{baseUrl}}"], "path": ["stock_items", ":id"], "variable": [{ "key": "id", "value": "" }] },
+            "description": "Retrieves a single stock item by ID."
+          }
+        },
+        {
+          "name": "List stock item plannings",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Accept", "value": "application/vnd.api+json" }],
+            "url": { "raw": "{{baseUrl}}/stock_item_plannings", "host": ["{{baseUrl}}"], "path": ["stock_item_plannings"] },
+            "description": "Lists the plannings that reserve specific stock items against orders."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Availability",
+      "item": [
+        {
+          "name": "Get availabilities",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Accept", "value": "application/vnd.api+json" }],
+            "url": { "raw": "{{baseUrl}}/availabilities", "host": ["{{baseUrl}}"], "path": ["availabilities"] },
+            "description": "Returns availability information for orders, products, and downtimes."
+          }
+        },
+        {
+          "name": "Get inventory availabilities",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Accept", "value": "application/vnd.api+json" }],
+            "url": { "raw": "{{baseUrl}}/inventory_availabilities", "host": ["{{baseUrl}}"], "path": ["inventory_availabilities"] },
+            "description": "Returns available quantity for products and bundles over a period."
+          }
+        },
+        {
+          "name": "Get inventory levels",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Accept", "value": "application/vnd.api+json" }],
+            "url": { "raw": "{{baseUrl}}/inventory_levels", "host": ["{{baseUrl}}"], "path": ["inventory_levels"] },
+            "description": "Returns stock counts for products, optionally by location."
+          }
+        },
+        {
+          "name": "List plannings",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Accept", "value": "application/vnd.api+json" }],
+            "url": { "raw": "{{baseUrl}}/plannings", "host": ["{{baseUrl}}"], "path": ["plannings"] },
+            "description": "Lists the plannings that reserve inventory against orders."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Documents & Invoices",
+      "item": [
+        {
+          "name": "List documents",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Accept", "value": "application/vnd.api+json" }],
+            "url": { "raw": "{{baseUrl}}/documents", "host": ["{{baseUrl}}"], "path": ["documents"] },
+            "description": "Lists invoices, quotes, contracts, and packing slips."
+          }
+        },
+        {
+          "name": "Fetch a document",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Accept", "value": "application/vnd.api+json" }],
+            "url": { "raw": "{{baseUrl}}/documents/:id", "host": ["{{baseUrl}}"], "path": ["documents", ":id"], "variable": [{ "key": "id", "value": "" }] },
+            "description": "Retrieves a single document by ID."
+          }
+        },
+        {
+          "name": "List payments",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Accept", "value": "application/vnd.api+json" }],
+            "url": { "raw": "{{baseUrl}}/payments", "host": ["{{baseUrl}}"], "path": ["payments"] },
+            "description": "Lists payments recorded against documents and orders."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Bundles & Collections",
+      "item": [
+        {
+          "name": "List bundles",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Accept", "value": "application/vnd.api+json" }],
+            "url": { "raw": "{{baseUrl}}/bundles", "host": ["{{baseUrl}}"], "path": ["bundles"] },
+            "description": "Lists and searches bundles."
+          }
+        },
+        {
+          "name": "List collections",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Accept", "value": "application/vnd.api+json" }],
+            "url": { "raw": "{{baseUrl}}/collections", "host": ["{{baseUrl}}"], "path": ["collections"] },
+            "description": "Lists the store collections that organize catalog items."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Webhooks",
+      "item": [
+        {
+          "name": "Create a webhook",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/vnd.api+json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"data\": {\n    \"type\": \"webhooks\",\n    \"attributes\": {\n      \"url\": \"https://example.com/booqable-webhook\",\n      \"topic\": \"order.updated\"\n    }\n  }\n}" },
+            "url": { "raw": "{{baseUrl}}/webhooks", "host": ["{{baseUrl}}"], "path": ["webhooks"] },
+            "description": "Creates a webhook subscription that POSTs event payloads to a target URL."
+          }
+        },
+        {
+          "name": "Fetch a webhook",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Accept", "value": "application/vnd.api+json" }],
+            "url": { "raw": "{{baseUrl}}/webhooks/:id", "host": ["{{baseUrl}}"], "path": ["webhooks", ":id"], "variable": [{ "key": "id", "value": "" }] },
+            "description": "Retrieves a single webhook subscription by ID."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Settings & Locations",
+      "item": [
+        {
+          "name": "List locations",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Accept", "value": "application/vnd.api+json" }],
+            "url": { "raw": "{{baseUrl}}/locations", "host": ["{{baseUrl}}"], "path": ["locations"] },
+            "description": "Lists the physical locations that hold inventory."
+          }
+        },
+        {
+          "name": "List tax rates",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Accept", "value": "application/vnd.api+json" }],
+            "url": { "raw": "{{baseUrl}}/tax_rates", "host": ["{{baseUrl}}"], "path": ["tax_rates"] },
+            "description": "Lists the tax rates applied to orders and documents."
+          }
+        },
+        {
+          "name": "List coupons",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Accept", "value": "application/vnd.api+json" }],
+            "url": { "raw": "{{baseUrl}}/coupons", "host": ["{{baseUrl}}"], "path": ["coupons"] },
+            "description": "Lists discount coupons."
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,137 @@
+aid: booqable
+name: Booqable
+review:
+  question: Does Booqable expose a documented public WebSocket API?
+  answer: false
+  date: '2026-07-03'
+  reviewer: API Evangelist
+  asyncapiSpecCreated: false
+  asyncapiScopeNote: |
+    No AsyncAPI document was authored. Booqable's public API surface is
+    request/response REST following the JSON:API specification over HTTPS. The
+    only asynchronous, server-initiated mechanism Booqable documents is
+    webhooks - the platform POSTs event payloads to a subscriber-configured
+    HTTPS endpoint. There is no documented WebSocket (ws:// or wss://) or SSE
+    transport on Booqable's own API to model. Webhooks are server-to-endpoint
+    HTTP callbacks, not a bidirectional streaming socket, so no AsyncAPI channel
+    document was created.
+findings:
+  summary: |
+    Booqable does not publish a documented public WebSocket API. Booqable is
+    equipment and inventory rental management software. Its developer API (v4,
+    "Boomerang") is a RESTful, JSON:API-compliant interface reached at a
+    company-specific host, https://{company}.booqable.com/api/4, authenticated
+    with an access token (Bearer) or a signed single-use request. A legacy v1
+    API also remains documented. All resource access - orders, products,
+    product groups, customers, stock items, availabilities, plannings,
+    documents, payments, bundles, collections, locations, tax rates, coupons,
+    and webhooks - is plain request/response REST. Booqable's only push mechanism
+    is webhooks, which deliver server-to-endpoint HTTPS POST callbacks when
+    resources change. No realtime, bidirectional, or streaming WebSocket
+    endpoint is documented anywhere in Booqable's API reference as of the review
+    date.
+  openSource: |
+    Booqable's platform is a proprietary hosted SaaS and is not open source.
+    Booqable does maintain public helper repositories on GitHub
+    (github.com/booqable), including the api-documentation source, a Ruby
+    toolkit (booqable.rb), and a WordPress plugin, but the rental platform
+    itself is closed-source and available only as a managed subscription.
+  transports:
+    - protocol: REST
+      scheme: https
+      baseURL: https://{company}.booqable.com/api/4
+      documented: true
+      note: JSON:API-compliant REST API (v4 "Boomerang"). Bearer access token or signed request auth. Legacy v1 API also documented.
+    - protocol: Webhook
+      scheme: https
+      documented: true
+      note: Booqable POSTs event payloads to a subscriber-configured HTTPS endpoint when resources change. Server-to-endpoint HTTP, not WebSocket.
+    - protocol: WebSocket
+      scheme: wss
+      documented: false
+      note: No WebSocket endpoint is documented anywhere in Booqable's v4 or v1 API reference as of the review date.
+  endpointsConfirmedRest:
+    - GET    https://{company}.booqable.com/api/4/orders
+    - POST   https://{company}.booqable.com/api/4/orders
+    - GET    https://{company}.booqable.com/api/4/orders/new
+    - GET    https://{company}.booqable.com/api/4/orders/{id}
+    - PATCH  https://{company}.booqable.com/api/4/orders/{id}
+    - POST   https://{company}.booqable.com/api/4/order_fulfillments/book
+    - POST   https://{company}.booqable.com/api/4/order_fulfillments/specify
+    - POST   https://{company}.booqable.com/api/4/order_fulfillments/start
+    - POST   https://{company}.booqable.com/api/4/order_fulfillments/stop
+    - POST   https://{company}.booqable.com/api/4/order_status_transitions/transition
+    - GET    https://{company}.booqable.com/api/4/lines
+    - POST   https://{company}.booqable.com/api/4/lines
+    - GET    https://{company}.booqable.com/api/4/lines/{id}
+    - PATCH  https://{company}.booqable.com/api/4/lines/{id}
+    - GET    https://{company}.booqable.com/api/4/products
+    - POST   https://{company}.booqable.com/api/4/products
+    - GET    https://{company}.booqable.com/api/4/products/{id}
+    - PATCH  https://{company}.booqable.com/api/4/products/{id}
+    - GET    https://{company}.booqable.com/api/4/product_groups
+    - POST   https://{company}.booqable.com/api/4/product_groups
+    - GET    https://{company}.booqable.com/api/4/product_groups/{id}
+    - PATCH  https://{company}.booqable.com/api/4/product_groups/{id}
+    - GET    https://{company}.booqable.com/api/4/customers
+    - POST   https://{company}.booqable.com/api/4/customers
+    - GET    https://{company}.booqable.com/api/4/customers/{id}
+    - PATCH  https://{company}.booqable.com/api/4/customers/{id}
+    - GET    https://{company}.booqable.com/api/4/stock_items
+    - POST   https://{company}.booqable.com/api/4/stock_items
+    - GET    https://{company}.booqable.com/api/4/stock_items/{id}
+    - PATCH  https://{company}.booqable.com/api/4/stock_items/{id}
+    - GET    https://{company}.booqable.com/api/4/stock_item_plannings
+    - GET    https://{company}.booqable.com/api/4/barcodes
+    - POST   https://{company}.booqable.com/api/4/barcodes
+    - GET    https://{company}.booqable.com/api/4/availabilities
+    - GET    https://{company}.booqable.com/api/4/inventory_availabilities
+    - GET    https://{company}.booqable.com/api/4/inventory_levels
+    - GET    https://{company}.booqable.com/api/4/plannings
+    - GET    https://{company}.booqable.com/api/4/plannings/{id}
+    - GET    https://{company}.booqable.com/api/4/documents
+    - POST   https://{company}.booqable.com/api/4/documents
+    - GET    https://{company}.booqable.com/api/4/documents/{id}
+    - PATCH  https://{company}.booqable.com/api/4/documents/{id}
+    - GET    https://{company}.booqable.com/api/4/payments
+    - GET    https://{company}.booqable.com/api/4/payments/{id}
+    - GET    https://{company}.booqable.com/api/4/bundles
+    - POST   https://{company}.booqable.com/api/4/bundles
+    - GET    https://{company}.booqable.com/api/4/bundles/{id}
+    - PATCH  https://{company}.booqable.com/api/4/bundles/{id}
+    - GET    https://{company}.booqable.com/api/4/collections
+    - POST   https://{company}.booqable.com/api/4/collections
+    - POST   https://{company}.booqable.com/api/4/webhooks
+    - GET    https://{company}.booqable.com/api/4/webhooks/{id}
+    - GET    https://{company}.booqable.com/api/4/locations
+    - GET    https://{company}.booqable.com/api/4/tax_rates
+    - GET    https://{company}.booqable.com/api/4/coupons
+    - GET    https://{company}.booqable.com/api/4/notes
+  endpointsModeledRest:
+    - Request/response schemas in the OpenAPI are modeled JSON:API envelopes (data/included/meta), simplified from the live documentation which specifies per-resource attributes and relationships.
+sources:
+  - url: https://developers.booqable.com/
+    type: Documentation
+    note: Booqable API v4 ("Boomerang") reference - JSON:API, company-specific host, Bearer/signed auth. No WebSocket mentioned.
+  - url: https://developers.booqable.com/v1.html
+    type: Documentation
+    note: Legacy v1 API reference; REST with api_key query parameter. No WebSocket.
+  - url: https://github.com/booqable/api-documentation
+    type: SourceCode
+    note: Source of the developer documentation site.
+  - url: https://github.com/booqable/booqable.rb
+    type: SDK
+    note: Official Ruby toolkit for the Booqable API - REST client, no socket transport.
+  - url: https://help.booqable.com/en/articles/4325485-how-to-create-an-api-key
+    type: Documentation
+    note: How to create an API key / access token.
+actions:
+  asyncapiPath: null
+  apisYmlUpdated: true
+  reason: |
+    No WebSocket protocol surface exists on Booqable's own API. Booqable's public
+    API is request/response REST (JSON:API), and its only asynchronous mechanism
+    is webhooks - server-to-endpoint HTTPS callbacks, not a bidirectional
+    socket. No AsyncAPI document was created because there is no server-push
+    streaming transport to model; the webhooks are captured as a REST resource
+    and a documented callback transport in apis.yml and the OpenAPI.

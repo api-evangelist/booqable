@@ -1,0 +1,256 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Booqable API (v4 Boomerang)",
+    "version": "4"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{accessToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": { "name": "Orders", "type": "folder" },
+      "items": [
+        {
+          "info": { "name": "List orders", "type": "http" },
+          "http": { "method": "GET", "url": "https://{{company}}.booqable.com/api/4/orders" },
+          "docs": "Lists and searches rental orders."
+        },
+        {
+          "info": { "name": "New order template", "type": "http" },
+          "http": { "method": "GET", "url": "https://{{company}}.booqable.com/api/4/orders/new" },
+          "docs": "Returns a blank order resource used to start a new order."
+        },
+        {
+          "info": { "name": "Create an order", "type": "http" },
+          "http": { "method": "POST", "url": "https://{{company}}.booqable.com/api/4/orders", "body": { "type": "json", "data": "{\"data\":{\"type\":\"orders\",\"attributes\":{\"starts_at\":\"2026-08-01T09:00:00Z\",\"stops_at\":\"2026-08-03T17:00:00Z\"}}}" } },
+          "docs": "Creates a new rental order."
+        },
+        {
+          "info": { "name": "Fetch an order", "type": "http" },
+          "http": { "method": "GET", "url": "https://{{company}}.booqable.com/api/4/orders/:id", "params": [ { "name": "id", "value": "", "type": "path", "description": "The order UUID." } ] },
+          "docs": "Retrieves a single order by ID."
+        },
+        {
+          "info": { "name": "Update an order", "type": "http" },
+          "http": { "method": "PATCH", "url": "https://{{company}}.booqable.com/api/4/orders/:id", "params": [ { "name": "id", "value": "", "type": "path", "description": "The order UUID." } ], "body": { "type": "json", "data": "{\"data\":{\"type\":\"orders\",\"attributes\":{}}}" } },
+          "docs": "Updates an existing order."
+        }
+      ]
+    },
+    {
+      "info": { "name": "Order Fulfillment", "type": "folder" },
+      "items": [
+        {
+          "info": { "name": "Book order lines", "type": "http" },
+          "http": { "method": "POST", "url": "https://{{company}}.booqable.com/api/4/order_fulfillments/book", "body": { "type": "json", "data": "{\"data\":{\"type\":\"order_fulfillments\",\"attributes\":{\"order_id\":\"\",\"lines\":[]}}}" } },
+          "docs": "Books products and quantities onto an order, reserving inventory."
+        },
+        {
+          "info": { "name": "Specify stock items", "type": "http" },
+          "http": { "method": "POST", "url": "https://{{company}}.booqable.com/api/4/order_fulfillments/specify", "body": { "type": "json", "data": "{\"data\":{\"type\":\"order_fulfillments\",\"attributes\":{}}}" } },
+          "docs": "Assigns specific stock items to trackable lines on an order."
+        },
+        {
+          "info": { "name": "Start fulfillment", "type": "http" },
+          "http": { "method": "POST", "url": "https://{{company}}.booqable.com/api/4/order_fulfillments/start", "body": { "type": "json", "data": "{\"data\":{\"type\":\"order_fulfillments\",\"attributes\":{}}}" } },
+          "docs": "Starts (checks out) the assigned stock items on an order."
+        },
+        {
+          "info": { "name": "Stop fulfillment", "type": "http" },
+          "http": { "method": "POST", "url": "https://{{company}}.booqable.com/api/4/order_fulfillments/stop", "body": { "type": "json", "data": "{\"data\":{\"type\":\"order_fulfillments\",\"attributes\":{}}}" } },
+          "docs": "Stops (checks in / returns) the started stock items on an order."
+        },
+        {
+          "info": { "name": "Transition order status", "type": "http" },
+          "http": { "method": "POST", "url": "https://{{company}}.booqable.com/api/4/order_status_transitions/transition", "body": { "type": "json", "data": "{\"data\":{\"type\":\"order_status_transitions\",\"attributes\":{\"order_id\":\"\",\"to\":\"reserved\"}}}" } },
+          "docs": "Moves an order to a new status."
+        },
+        {
+          "info": { "name": "List lines", "type": "http" },
+          "http": { "method": "GET", "url": "https://{{company}}.booqable.com/api/4/lines" },
+          "docs": "Lists the line items across orders."
+        }
+      ]
+    },
+    {
+      "info": { "name": "Products", "type": "folder" },
+      "items": [
+        {
+          "info": { "name": "List products", "type": "http" },
+          "http": { "method": "GET", "url": "https://{{company}}.booqable.com/api/4/products" },
+          "docs": "Lists and searches products in the catalog."
+        },
+        {
+          "info": { "name": "Create a product", "type": "http" },
+          "http": { "method": "POST", "url": "https://{{company}}.booqable.com/api/4/products", "body": { "type": "json", "data": "{\"data\":{\"type\":\"products\",\"attributes\":{\"name\":\"Sample Product\"}}}" } },
+          "docs": "Creates a new product."
+        },
+        {
+          "info": { "name": "Fetch a product", "type": "http" },
+          "http": { "method": "GET", "url": "https://{{company}}.booqable.com/api/4/products/:id", "params": [ { "name": "id", "value": "", "type": "path", "description": "The product UUID." } ] },
+          "docs": "Retrieves a single product by ID."
+        },
+        {
+          "info": { "name": "Update a product", "type": "http" },
+          "http": { "method": "PATCH", "url": "https://{{company}}.booqable.com/api/4/products/:id", "params": [ { "name": "id", "value": "", "type": "path", "description": "The product UUID." } ], "body": { "type": "json", "data": "{\"data\":{\"type\":\"products\",\"attributes\":{}}}" } },
+          "docs": "Updates an existing product. Set archived to archive it."
+        }
+      ]
+    },
+    {
+      "info": { "name": "Product Groups", "type": "folder" },
+      "items": [
+        {
+          "info": { "name": "List product groups", "type": "http" },
+          "http": { "method": "GET", "url": "https://{{company}}.booqable.com/api/4/product_groups" },
+          "docs": "Lists and searches product groups."
+        },
+        {
+          "info": { "name": "Fetch a product group", "type": "http" },
+          "http": { "method": "GET", "url": "https://{{company}}.booqable.com/api/4/product_groups/:id", "params": [ { "name": "id", "value": "", "type": "path", "description": "The product group UUID." } ] },
+          "docs": "Retrieves a single product group by ID."
+        }
+      ]
+    },
+    {
+      "info": { "name": "Customers", "type": "folder" },
+      "items": [
+        {
+          "info": { "name": "List customers", "type": "http" },
+          "http": { "method": "GET", "url": "https://{{company}}.booqable.com/api/4/customers" },
+          "docs": "Lists and searches customers."
+        },
+        {
+          "info": { "name": "Create a customer", "type": "http" },
+          "http": { "method": "POST", "url": "https://{{company}}.booqable.com/api/4/customers", "body": { "type": "json", "data": "{\"data\":{\"type\":\"customers\",\"attributes\":{\"name\":\"Jane Doe\",\"email\":\"jane@example.com\"}}}" } },
+          "docs": "Creates a new customer."
+        },
+        {
+          "info": { "name": "Fetch a customer", "type": "http" },
+          "http": { "method": "GET", "url": "https://{{company}}.booqable.com/api/4/customers/:id", "params": [ { "name": "id", "value": "", "type": "path", "description": "The customer UUID." } ] },
+          "docs": "Retrieves a single customer by ID."
+        }
+      ]
+    },
+    {
+      "info": { "name": "Stock Items", "type": "folder" },
+      "items": [
+        {
+          "info": { "name": "List stock items", "type": "http" },
+          "http": { "method": "GET", "url": "https://{{company}}.booqable.com/api/4/stock_items" },
+          "docs": "Lists the individually identifiable units of trackable products."
+        },
+        {
+          "info": { "name": "Fetch a stock item", "type": "http" },
+          "http": { "method": "GET", "url": "https://{{company}}.booqable.com/api/4/stock_items/:id", "params": [ { "name": "id", "value": "", "type": "path", "description": "The stock item UUID." } ] },
+          "docs": "Retrieves a single stock item by ID."
+        },
+        {
+          "info": { "name": "List stock item plannings", "type": "http" },
+          "http": { "method": "GET", "url": "https://{{company}}.booqable.com/api/4/stock_item_plannings" },
+          "docs": "Lists the plannings that reserve specific stock items against orders."
+        }
+      ]
+    },
+    {
+      "info": { "name": "Availability", "type": "folder" },
+      "items": [
+        {
+          "info": { "name": "Get availabilities", "type": "http" },
+          "http": { "method": "GET", "url": "https://{{company}}.booqable.com/api/4/availabilities" },
+          "docs": "Returns availability information for orders, products, and downtimes."
+        },
+        {
+          "info": { "name": "Get inventory availabilities", "type": "http" },
+          "http": { "method": "GET", "url": "https://{{company}}.booqable.com/api/4/inventory_availabilities" },
+          "docs": "Returns available quantity for products and bundles over a period."
+        },
+        {
+          "info": { "name": "Get inventory levels", "type": "http" },
+          "http": { "method": "GET", "url": "https://{{company}}.booqable.com/api/4/inventory_levels" },
+          "docs": "Returns stock counts for products, optionally by location."
+        },
+        {
+          "info": { "name": "List plannings", "type": "http" },
+          "http": { "method": "GET", "url": "https://{{company}}.booqable.com/api/4/plannings" },
+          "docs": "Lists the plannings that reserve inventory against orders."
+        }
+      ]
+    },
+    {
+      "info": { "name": "Documents & Invoices", "type": "folder" },
+      "items": [
+        {
+          "info": { "name": "List documents", "type": "http" },
+          "http": { "method": "GET", "url": "https://{{company}}.booqable.com/api/4/documents" },
+          "docs": "Lists invoices, quotes, contracts, and packing slips."
+        },
+        {
+          "info": { "name": "Fetch a document", "type": "http" },
+          "http": { "method": "GET", "url": "https://{{company}}.booqable.com/api/4/documents/:id", "params": [ { "name": "id", "value": "", "type": "path", "description": "The document UUID." } ] },
+          "docs": "Retrieves a single document by ID."
+        },
+        {
+          "info": { "name": "List payments", "type": "http" },
+          "http": { "method": "GET", "url": "https://{{company}}.booqable.com/api/4/payments" },
+          "docs": "Lists payments recorded against documents and orders."
+        }
+      ]
+    },
+    {
+      "info": { "name": "Bundles & Collections", "type": "folder" },
+      "items": [
+        {
+          "info": { "name": "List bundles", "type": "http" },
+          "http": { "method": "GET", "url": "https://{{company}}.booqable.com/api/4/bundles" },
+          "docs": "Lists and searches bundles."
+        },
+        {
+          "info": { "name": "List collections", "type": "http" },
+          "http": { "method": "GET", "url": "https://{{company}}.booqable.com/api/4/collections" },
+          "docs": "Lists the store collections that organize catalog items."
+        }
+      ]
+    },
+    {
+      "info": { "name": "Webhooks", "type": "folder" },
+      "items": [
+        {
+          "info": { "name": "Create a webhook", "type": "http" },
+          "http": { "method": "POST", "url": "https://{{company}}.booqable.com/api/4/webhooks", "body": { "type": "json", "data": "{\"data\":{\"type\":\"webhooks\",\"attributes\":{\"url\":\"https://example.com/booqable-webhook\",\"topic\":\"order.updated\"}}}" } },
+          "docs": "Creates a webhook subscription that POSTs event payloads to a target URL."
+        },
+        {
+          "info": { "name": "Fetch a webhook", "type": "http" },
+          "http": { "method": "GET", "url": "https://{{company}}.booqable.com/api/4/webhooks/:id", "params": [ { "name": "id", "value": "", "type": "path", "description": "The webhook UUID." } ] },
+          "docs": "Retrieves a single webhook subscription by ID."
+        }
+      ]
+    },
+    {
+      "info": { "name": "Settings & Locations", "type": "folder" },
+      "items": [
+        {
+          "info": { "name": "List locations", "type": "http" },
+          "http": { "method": "GET", "url": "https://{{company}}.booqable.com/api/4/locations" },
+          "docs": "Lists the physical locations that hold inventory."
+        },
+        {
+          "info": { "name": "List tax rates", "type": "http" },
+          "http": { "method": "GET", "url": "https://{{company}}.booqable.com/api/4/tax_rates" },
+          "docs": "Lists the tax rates applied to orders and documents."
+        },
+        {
+          "info": { "name": "List coupons", "type": "http" },
+          "http": { "method": "GET", "url": "https://{{company}}.booqable.com/api/4/coupons" },
+          "docs": "Lists discount coupons."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
