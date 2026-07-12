@@ -238,6 +238,12 @@ apis:
     locations, tax rates, coupons and discounts, employees, and free-form notes on
     any resource.
 common:
+- type: TrustCenter
+  url: security/booqable-trust-center.yml
+- type: DomainSecurity
+  url: security/booqable-domain-security.yml
+- type: Authentication
+  url: authentication/booqable-authentication.yml
 - type: GitHubOrganization
   url: https://github.com/booqable
 - type: LinkedIn
@@ -252,6 +258,8 @@ common:
   url: rate-limits/booqable-rate-limits.yml
 - type: FinOps
   url: finops/booqable-finops.yml
+- url: https://booqable.com/blog/
+  type: Blog
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com

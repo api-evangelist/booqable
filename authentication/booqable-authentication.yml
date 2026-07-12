@@ -1,0 +1,15 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/booqable-openapi.yml
+summary:
+  types:
+  - http
+schemes:
+- name: bearerAuth
+  type: http
+  scheme: bearer
+  description: 'An access token created in Booqable account settings, sent as "Authorization:
+    Bearer <token>". Booqable also supports request signing (single-use signed tokens using
+    ES256, RS256, or HS256) and, on the legacy v1 API, an api_key query parameter.'
+  sources:
+  - openapi/booqable-openapi.yml
