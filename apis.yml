@@ -238,6 +238,8 @@ apis:
     locations, tax rates, coupons and discounts, employees, and free-form notes on
     any resource.
 common:
+- type: AgenticAccess
+  url: agentic-access/booqable-agentic-access.yml
 - type: TrustCenter
   url: security/booqable-trust-center.yml
 - type: DomainSecurity
