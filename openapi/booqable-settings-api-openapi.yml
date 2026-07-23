@@ -1,0 +1,201 @@
+openapi: 3.0.3
+info:
+  title: Booqable API (v4 "Boomerang") Availability Settings API
+  description: The Booqable API is a RESTful, JSON:API-compliant interface for managing an equipment and inventory rental business - orders, products, product groups, customers, stock items, availability and plannings, documents and invoices, payments, bundles, collections, and webhooks. Requests are directed to a company-specific host in the form https://{company}.booqable.com/api/4 and authenticated with an access token (Bearer) or a signed single-use request. The default response media type is JSON:API (application/vnd.api+json); a nested JSON representation is available by appending .json to a path. The API is documented as still in Beta and may introduce non-backwards-compatible changes. A legacy v1 API also remains documented. This description was authored by API Evangelist from the public Booqable developer documentation; request and response schemas are modeled and simplified.
+  version: '4'
+  contact:
+    name: Booqable
+    url: https://developers.booqable.com/
+  license:
+    name: Proprietary
+    url: https://booqable.com/terms/
+servers:
+- url: https://{company}.booqable.com/api/4
+  description: Company-specific Booqable API v4 host
+  variables:
+    company:
+      default: your-company
+      description: Your Booqable company slug (subdomain).
+security:
+- bearerAuth: []
+tags:
+- name: Settings
+  description: Locations, tax rates, coupons, employees, and notes.
+paths:
+  /locations:
+    get:
+      operationId: listLocations
+      tags:
+      - Settings
+      summary: List locations
+      description: Lists the physical locations that hold inventory and fulfill orders.
+      responses:
+        '200':
+          description: A page of locations.
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ResourceCollection'
+    post:
+      operationId: createLocation
+      tags:
+      - Settings
+      summary: Create a location
+      description: Creates a new location.
+      requestBody:
+        $ref: '#/components/requestBodies/ResourceBody'
+      responses:
+        '201':
+          description: The created location.
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ResourceDocument'
+  /tax_rates:
+    get:
+      operationId: listTaxRates
+      tags:
+      - Settings
+      summary: List tax rates
+      description: Lists the tax rates applied to orders and documents.
+      responses:
+        '200':
+          description: A page of tax rates.
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ResourceCollection'
+    post:
+      operationId: createTaxRate
+      tags:
+      - Settings
+      summary: Create a tax rate
+      description: Creates a new tax rate.
+      requestBody:
+        $ref: '#/components/requestBodies/ResourceBody'
+      responses:
+        '201':
+          description: The created tax rate.
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ResourceDocument'
+  /coupons:
+    get:
+      operationId: listCoupons
+      tags:
+      - Settings
+      summary: List coupons
+      description: Lists discount coupons.
+      responses:
+        '200':
+          description: A page of coupons.
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ResourceCollection'
+    post:
+      operationId: createCoupon
+      tags:
+      - Settings
+      summary: Create a coupon
+      description: Creates a new coupon.
+      requestBody:
+        $ref: '#/components/requestBodies/ResourceBody'
+      responses:
+        '201':
+          description: The created coupon.
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ResourceDocument'
+  /notes:
+    get:
+      operationId: listNotes
+      tags:
+      - Settings
+      summary: List notes
+      description: Lists free-form notes attached to orders, customers, and other resources.
+      responses:
+        '200':
+          description: A page of notes.
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ResourceCollection'
+    post:
+      operationId: createNote
+      tags:
+      - Settings
+      summary: Create a note
+      description: Creates a note on a resource.
+      requestBody:
+        $ref: '#/components/requestBodies/ResourceBody'
+      responses:
+        '201':
+          description: The created note.
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ResourceDocument'
+components:
+  schemas:
+    Resource:
+      type: object
+      description: A JSON:API resource object.
+      properties:
+        type:
+          type: string
+        id:
+          type: string
+        attributes:
+          type: object
+          additionalProperties: true
+        relationships:
+          type: object
+          additionalProperties: true
+    ResourceCollection:
+      type: object
+      description: A JSON:API document containing a collection of resources.
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Resource'
+        included:
+          type: array
+          items:
+            $ref: '#/components/schemas/Resource'
+        meta:
+          type: object
+          description: Metadata such as total_count and pagination stats.
+          additionalProperties: true
+        links:
+          type: object
+          additionalProperties: true
+    ResourceDocument:
+      type: object
+      description: A JSON:API document containing a single primary resource.
+      properties:
+        data:
+          $ref: '#/components/schemas/Resource'
+        included:
+          type: array
+          items:
+            $ref: '#/components/schemas/Resource'
+        meta:
+          type: object
+          additionalProperties: true
+  requestBodies:
+    ResourceBody:
+      required: true
+      description: A JSON:API document wrapping the resource under a "data" member.
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/ResourceDocument'
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: 'An access token created in Booqable account settings, sent as "Authorization: Bearer <token>". Booqable also supports request signing (single-use signed tokens using ES256, RS256, or HS256) and, on the legacy v1 API, an api_key query parameter.'

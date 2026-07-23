@@ -1,0 +1,182 @@
+openapi: 3.0.3
+info:
+  title: Booqable API (v4 "Boomerang") Availability Products API
+  description: The Booqable API is a RESTful, JSON:API-compliant interface for managing an equipment and inventory rental business - orders, products, product groups, customers, stock items, availability and plannings, documents and invoices, payments, bundles, collections, and webhooks. Requests are directed to a company-specific host in the form https://{company}.booqable.com/api/4 and authenticated with an access token (Bearer) or a signed single-use request. The default response media type is JSON:API (application/vnd.api+json); a nested JSON representation is available by appending .json to a path. The API is documented as still in Beta and may introduce non-backwards-compatible changes. A legacy v1 API also remains documented. This description was authored by API Evangelist from the public Booqable developer documentation; request and response schemas are modeled and simplified.
+  version: '4'
+  contact:
+    name: Booqable
+    url: https://developers.booqable.com/
+  license:
+    name: Proprietary
+    url: https://booqable.com/terms/
+servers:
+- url: https://{company}.booqable.com/api/4
+  description: Company-specific Booqable API v4 host
+  variables:
+    company:
+      default: your-company
+      description: Your Booqable company slug (subdomain).
+security:
+- bearerAuth: []
+tags:
+- name: Products
+  description: Rentable and sellable catalog products.
+paths:
+  /products:
+    get:
+      operationId: listProducts
+      tags:
+      - Products
+      summary: List products
+      description: Lists and searches products in the catalog.
+      parameters:
+      - $ref: '#/components/parameters/PageNumber'
+      - $ref: '#/components/parameters/PageSize'
+      - $ref: '#/components/parameters/Include'
+      responses:
+        '200':
+          description: A page of products.
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ResourceCollection'
+    post:
+      operationId: createProduct
+      tags:
+      - Products
+      summary: Create a product
+      description: Creates a new product.
+      requestBody:
+        $ref: '#/components/requestBodies/ResourceBody'
+      responses:
+        '201':
+          description: The created product.
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ResourceDocument'
+  /products/{id}:
+    parameters:
+    - $ref: '#/components/parameters/Id'
+    get:
+      operationId: getProduct
+      tags:
+      - Products
+      summary: Fetch a product
+      description: Retrieves a single product by ID.
+      responses:
+        '200':
+          description: The requested product.
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ResourceDocument'
+    patch:
+      operationId: updateProduct
+      tags:
+      - Products
+      summary: Update a product
+      description: Updates an existing product. Set archived to archive it.
+      requestBody:
+        $ref: '#/components/requestBodies/ResourceBody'
+      responses:
+        '200':
+          description: The updated product.
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ResourceDocument'
+components:
+  parameters:
+    Include:
+      name: include
+      in: query
+      required: false
+      description: Comma-separated list of related resources to sideload (JSON:API include).
+      schema:
+        type: string
+    PageNumber:
+      name: page[number]
+      in: query
+      required: false
+      description: The page number to return (JSON:API pagination).
+      schema:
+        type: integer
+        minimum: 1
+        default: 1
+    PageSize:
+      name: page[size]
+      in: query
+      required: false
+      description: Number of records per page. Defaults to 25.
+      schema:
+        type: integer
+        minimum: 1
+        default: 25
+    Id:
+      name: id
+      in: path
+      required: true
+      description: The UUID of the resource.
+      schema:
+        type: string
+  requestBodies:
+    ResourceBody:
+      required: true
+      description: A JSON:API document wrapping the resource under a "data" member.
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/ResourceDocument'
+  schemas:
+    ResourceDocument:
+      type: object
+      description: A JSON:API document containing a single primary resource.
+      properties:
+        data:
+          $ref: '#/components/schemas/Resource'
+        included:
+          type: array
+          items:
+            $ref: '#/components/schemas/Resource'
+        meta:
+          type: object
+          additionalProperties: true
+    Resource:
+      type: object
+      description: A JSON:API resource object.
+      properties:
+        type:
+          type: string
+        id:
+          type: string
+        attributes:
+          type: object
+          additionalProperties: true
+        relationships:
+          type: object
+          additionalProperties: true
+    ResourceCollection:
+      type: object
+      description: A JSON:API document containing a collection of resources.
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Resource'
+        included:
+          type: array
+          items:
+            $ref: '#/components/schemas/Resource'
+        meta:
+          type: object
+          description: Metadata such as total_count and pagination stats.
+          additionalProperties: true
+        links:
+          type: object
+          additionalProperties: true
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: 'An access token created in Booqable account settings, sent as "Authorization: Bearer <token>". Booqable also supports request signing (single-use signed tokens using ES256, RS256, or HS256) and, on the legacy v1 API, an api_key query parameter.'

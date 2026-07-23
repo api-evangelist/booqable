@@ -1,0 +1,106 @@
+openapi: 3.0.3
+info:
+  title: Booqable API (v4 "Boomerang") Availability Webhooks API
+  description: The Booqable API is a RESTful, JSON:API-compliant interface for managing an equipment and inventory rental business - orders, products, product groups, customers, stock items, availability and plannings, documents and invoices, payments, bundles, collections, and webhooks. Requests are directed to a company-specific host in the form https://{company}.booqable.com/api/4 and authenticated with an access token (Bearer) or a signed single-use request. The default response media type is JSON:API (application/vnd.api+json); a nested JSON representation is available by appending .json to a path. The API is documented as still in Beta and may introduce non-backwards-compatible changes. A legacy v1 API also remains documented. This description was authored by API Evangelist from the public Booqable developer documentation; request and response schemas are modeled and simplified.
+  version: '4'
+  contact:
+    name: Booqable
+    url: https://developers.booqable.com/
+  license:
+    name: Proprietary
+    url: https://booqable.com/terms/
+servers:
+- url: https://{company}.booqable.com/api/4
+  description: Company-specific Booqable API v4 host
+  variables:
+    company:
+      default: your-company
+      description: Your Booqable company slug (subdomain).
+security:
+- bearerAuth: []
+tags:
+- name: Webhooks
+  description: Event subscriptions delivering HTTPS callbacks.
+paths:
+  /webhooks:
+    post:
+      operationId: createWebhook
+      tags:
+      - Webhooks
+      summary: Create a webhook
+      description: Creates a webhook subscription that POSTs event payloads to a target URL over HTTPS.
+      requestBody:
+        $ref: '#/components/requestBodies/ResourceBody'
+      responses:
+        '201':
+          description: The created webhook.
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ResourceDocument'
+  /webhooks/{id}:
+    parameters:
+    - $ref: '#/components/parameters/Id'
+    get:
+      operationId: getWebhook
+      tags:
+      - Webhooks
+      summary: Fetch a webhook
+      description: Retrieves a single webhook subscription by ID.
+      responses:
+        '200':
+          description: The requested webhook.
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ResourceDocument'
+components:
+  schemas:
+    Resource:
+      type: object
+      description: A JSON:API resource object.
+      properties:
+        type:
+          type: string
+        id:
+          type: string
+        attributes:
+          type: object
+          additionalProperties: true
+        relationships:
+          type: object
+          additionalProperties: true
+    ResourceDocument:
+      type: object
+      description: A JSON:API document containing a single primary resource.
+      properties:
+        data:
+          $ref: '#/components/schemas/Resource'
+        included:
+          type: array
+          items:
+            $ref: '#/components/schemas/Resource'
+        meta:
+          type: object
+          additionalProperties: true
+  requestBodies:
+    ResourceBody:
+      required: true
+      description: A JSON:API document wrapping the resource under a "data" member.
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/ResourceDocument'
+  parameters:
+    Id:
+      name: id
+      in: path
+      required: true
+      description: The UUID of the resource.
+      schema:
+        type: string
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: 'An access token created in Booqable account settings, sent as "Authorization: Bearer <token>". Booqable also supports request signing (single-use signed tokens using ES256, RS256, or HS256) and, on the legacy v1 API, an api_key query parameter.'
