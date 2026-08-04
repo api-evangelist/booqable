@@ -1,0 +1,34 @@
+{
+  "provider": "booqable",
+  "sources": [
+    "booqable-availability-api-openapi.yml",
+    "booqable-bundles-collections-api-openapi.yml",
+    "booqable-customers-api-openapi.yml",
+    "booqable-documents-api-openapi.yml",
+    "booqable-order-fulfillment-api-openapi.yml",
+    "booqable-orders-api-openapi.yml",
+    "booqable-product-groups-api-openapi.yml",
+    "booqable-products-api-openapi.yml",
+    "booqable-settings-api-openapi.yml",
+    "booqable-stock-items-api-openapi.yml",
+    "booqable-webhooks-api-openapi.yml"
+  ],
+  "outputs": [
+    "booqable-availability-api-openapi.yml",
+    "booqable-bundles-collections-api-openapi.yml",
+    "booqable-customers-api-openapi.yml",
+    "booqable-documents-api-openapi.yml",
+    "booqable-order-fulfillment-api-openapi.yml",
+    "booqable-orders-api-openapi.yml",
+    "booqable-product-groups-api-openapi.yml",
+    "booqable-products-api-openapi.yml",
+    "booqable-settings-api-openapi.yml",
+    "booqable-stock-items-api-openapi.yml",
+    "booqable-webhooks-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}

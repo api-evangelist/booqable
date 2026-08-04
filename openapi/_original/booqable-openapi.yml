@@ -1,0 +1,958 @@
+openapi: 3.0.3
+info:
+  title: Booqable API (v4 "Boomerang")
+  description: >-
+    The Booqable API is a RESTful, JSON:API-compliant interface for managing an
+    equipment and inventory rental business - orders, products, product groups,
+    customers, stock items, availability and plannings, documents and invoices,
+    payments, bundles, collections, and webhooks. Requests are directed to a
+    company-specific host in the form https://{company}.booqable.com/api/4 and
+    authenticated with an access token (Bearer) or a signed single-use request.
+    The default response media type is JSON:API (application/vnd.api+json); a
+    nested JSON representation is available by appending .json to a path. The API
+    is documented as still in Beta and may introduce non-backwards-compatible
+    changes. A legacy v1 API also remains documented. This description was
+    authored by API Evangelist from the public Booqable developer documentation;
+    request and response schemas are modeled and simplified.
+  version: '4'
+  contact:
+    name: Booqable
+    url: https://developers.booqable.com/
+  license:
+    name: Proprietary
+    url: https://booqable.com/terms/
+servers:
+  - url: https://{company}.booqable.com/api/4
+    description: Company-specific Booqable API v4 host
+    variables:
+      company:
+        default: your-company
+        description: Your Booqable company slug (subdomain).
+security:
+  - bearerAuth: []
+tags:
+  - name: Orders
+    description: Rental orders and their lifecycle.
+  - name: Order Fulfillment
+    description: Booking, starting, stopping, and transitioning orders and their lines.
+  - name: Products
+    description: Rentable and sellable catalog products.
+  - name: Product Groups
+    description: Parent records grouping product variations.
+  - name: Customers
+    description: People and companies that place orders.
+  - name: Stock Items
+    description: Individually identifiable units of trackable products.
+  - name: Availability
+    description: Inventory availability, levels, and plannings.
+  - name: Documents
+    description: Invoices, quotes, contracts, and payments.
+  - name: Bundles & Collections
+    description: Merchandising groups and store collections.
+  - name: Webhooks
+    description: Event subscriptions delivering HTTPS callbacks.
+  - name: Settings
+    description: Locations, tax rates, coupons, employees, and notes.
+paths:
+  /orders:
+    get:
+      operationId: listOrders
+      tags: [Orders]
+      summary: List orders
+      description: Lists and searches rental orders, with JSON:API filtering, sorting, includes, and pagination.
+      parameters:
+        - $ref: '#/components/parameters/PageNumber'
+        - $ref: '#/components/parameters/PageSize'
+        - $ref: '#/components/parameters/Include'
+      responses:
+        '200':
+          description: A page of orders.
+          content:
+            application/vnd.api+json:
+              schema: { $ref: '#/components/schemas/ResourceCollection' }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '429': { $ref: '#/components/responses/TooManyRequests' }
+    post:
+      operationId: createOrder
+      tags: [Orders]
+      summary: Create an order
+      description: Creates a new rental order.
+      requestBody: { $ref: '#/components/requestBodies/ResourceBody' }
+      responses:
+        '201':
+          description: The created order.
+          content:
+            application/vnd.api+json:
+              schema: { $ref: '#/components/schemas/ResourceDocument' }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '422': { $ref: '#/components/responses/UnprocessableEntity' }
+  /orders/new:
+    get:
+      operationId: newOrder
+      tags: [Orders]
+      summary: New order template
+      description: Returns a blank order resource pre-populated with defaults, used to start a new order.
+      responses:
+        '200':
+          description: A new order template.
+          content:
+            application/vnd.api+json:
+              schema: { $ref: '#/components/schemas/ResourceDocument' }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+  /orders/{id}:
+    parameters:
+      - $ref: '#/components/parameters/Id'
+    get:
+      operationId: getOrder
+      tags: [Orders]
+      summary: Fetch an order
+      description: Retrieves a single order by ID, optionally including related resources.
+      parameters:
+        - $ref: '#/components/parameters/Include'
+      responses:
+        '200':
+          description: The requested order.
+          content:
+            application/vnd.api+json:
+              schema: { $ref: '#/components/schemas/ResourceDocument' }
+        '404': { $ref: '#/components/responses/NotFound' }
+    patch:
+      operationId: updateOrder
+      tags: [Orders]
+      summary: Update an order
+      description: Updates an existing order.
+      requestBody: { $ref: '#/components/requestBodies/ResourceBody' }
+      responses:
+        '200':
+          description: The updated order.
+          content:
+            application/vnd.api+json:
+              schema: { $ref: '#/components/schemas/ResourceDocument' }
+        '422': { $ref: '#/components/responses/UnprocessableEntity' }
+  /order_fulfillments/book:
+    post:
+      operationId: bookOrderFulfillment
+      tags: [Order Fulfillment]
+      summary: Book order lines
+      description: Books products and quantities onto an order, reserving inventory for the rental period.
+      requestBody: { $ref: '#/components/requestBodies/ResourceBody' }
+      responses:
+        '200':
+          description: The updated order after booking.
+          content:
+            application/vnd.api+json:
+              schema: { $ref: '#/components/schemas/ResourceDocument' }
+        '422': { $ref: '#/components/responses/UnprocessableEntity' }
+  /order_fulfillments/specify:
+    post:
+      operationId: specifyOrderFulfillment
+      tags: [Order Fulfillment]
+      summary: Specify stock items
+      description: Assigns specific stock items to trackable lines on an order.
+      requestBody: { $ref: '#/components/requestBodies/ResourceBody' }
+      responses:
+        '200':
+          description: The updated order after specifying.
+          content:
+            application/vnd.api+json:
+              schema: { $ref: '#/components/schemas/ResourceDocument' }
+  /order_fulfillments/start:
+    post:
+      operationId: startOrderFulfillment
+      tags: [Order Fulfillment]
+      summary: Start fulfillment
+      description: Starts (picks up / checks out) the assigned stock items on an order.
+      requestBody: { $ref: '#/components/requestBodies/ResourceBody' }
+      responses:
+        '200':
+          description: The updated order after starting.
+          content:
+            application/vnd.api+json:
+              schema: { $ref: '#/components/schemas/ResourceDocument' }
+  /order_fulfillments/stop:
+    post:
+      operationId: stopOrderFulfillment
+      tags: [Order Fulfillment]
+      summary: Stop fulfillment
+      description: Stops (returns / checks in) the started stock items on an order.
+      requestBody: { $ref: '#/components/requestBodies/ResourceBody' }
+      responses:
+        '200':
+          description: The updated order after stopping.
+          content:
+            application/vnd.api+json:
+              schema: { $ref: '#/components/schemas/ResourceDocument' }
+  /order_status_transitions/transition:
+    post:
+      operationId: transitionOrderStatus
+      tags: [Order Fulfillment]
+      summary: Transition order status
+      description: Moves an order to a new status (for example new, concept, reserved, started, stopped, archived).
+      requestBody: { $ref: '#/components/requestBodies/ResourceBody' }
+      responses:
+        '200':
+          description: The order after the status transition.
+          content:
+            application/vnd.api+json:
+              schema: { $ref: '#/components/schemas/ResourceDocument' }
+  /lines:
+    get:
+      operationId: listLines
+      tags: [Order Fulfillment]
+      summary: List lines
+      description: Lists the line items across orders.
+      parameters:
+        - $ref: '#/components/parameters/PageNumber'
+        - $ref: '#/components/parameters/PageSize'
+      responses:
+        '200':
+          description: A page of lines.
+          content:
+            application/vnd.api+json:
+              schema: { $ref: '#/components/schemas/ResourceCollection' }
+    post:
+      operationId: createLine
+      tags: [Order Fulfillment]
+      summary: Create a line
+      description: Adds a line item to an order.
+      requestBody: { $ref: '#/components/requestBodies/ResourceBody' }
+      responses:
+        '201':
+          description: The created line.
+          content:
+            application/vnd.api+json:
+              schema: { $ref: '#/components/schemas/ResourceDocument' }
+  /lines/{id}:
+    parameters:
+      - $ref: '#/components/parameters/Id'
+    get:
+      operationId: getLine
+      tags: [Order Fulfillment]
+      summary: Fetch a line
+      description: Retrieves a single line by ID.
+      responses:
+        '200':
+          description: The requested line.
+          content:
+            application/vnd.api+json:
+              schema: { $ref: '#/components/schemas/ResourceDocument' }
+    patch:
+      operationId: updateLine
+      tags: [Order Fulfillment]
+      summary: Update a line
+      description: Updates an existing line.
+      requestBody: { $ref: '#/components/requestBodies/ResourceBody' }
+      responses:
+        '200':
+          description: The updated line.
+          content:
+            application/vnd.api+json:
+              schema: { $ref: '#/components/schemas/ResourceDocument' }
+  /products:
+    get:
+      operationId: listProducts
+      tags: [Products]
+      summary: List products
+      description: Lists and searches products in the catalog.
+      parameters:
+        - $ref: '#/components/parameters/PageNumber'
+        - $ref: '#/components/parameters/PageSize'
+        - $ref: '#/components/parameters/Include'
+      responses:
+        '200':
+          description: A page of products.
+          content:
+            application/vnd.api+json:
+              schema: { $ref: '#/components/schemas/ResourceCollection' }
+    post:
+      operationId: createProduct
+      tags: [Products]
+      summary: Create a product
+      description: Creates a new product.
+      requestBody: { $ref: '#/components/requestBodies/ResourceBody' }
+      responses:
+        '201':
+          description: The created product.
+          content:
+            application/vnd.api+json:
+              schema: { $ref: '#/components/schemas/ResourceDocument' }
+  /products/{id}:
+    parameters:
+      - $ref: '#/components/parameters/Id'
+    get:
+      operationId: getProduct
+      tags: [Products]
+      summary: Fetch a product
+      description: Retrieves a single product by ID.
+      responses:
+        '200':
+          description: The requested product.
+          content:
+            application/vnd.api+json:
+              schema: { $ref: '#/components/schemas/ResourceDocument' }
+    patch:
+      operationId: updateProduct
+      tags: [Products]
+      summary: Update a product
+      description: Updates an existing product. Set archived to archive it.
+      requestBody: { $ref: '#/components/requestBodies/ResourceBody' }
+      responses:
+        '200':
+          description: The updated product.
+          content:
+            application/vnd.api+json:
+              schema: { $ref: '#/components/schemas/ResourceDocument' }
+  /product_groups:
+    get:
+      operationId: listProductGroups
+      tags: [Product Groups]
+      summary: List product groups
+      description: Lists and searches product groups.
+      parameters:
+        - $ref: '#/components/parameters/PageNumber'
+        - $ref: '#/components/parameters/PageSize'
+        - $ref: '#/components/parameters/Include'
+      responses:
+        '200':
+          description: A page of product groups.
+          content:
+            application/vnd.api+json:
+              schema: { $ref: '#/components/schemas/ResourceCollection' }
+    post:
+      operationId: createProductGroup
+      tags: [Product Groups]
+      summary: Create a product group
+      description: Creates a new product group.
+      requestBody: { $ref: '#/components/requestBodies/ResourceBody' }
+      responses:
+        '201':
+          description: The created product group.
+          content:
+            application/vnd.api+json:
+              schema: { $ref: '#/components/schemas/ResourceDocument' }
+  /product_groups/{id}:
+    parameters:
+      - $ref: '#/components/parameters/Id'
+    get:
+      operationId: getProductGroup
+      tags: [Product Groups]
+      summary: Fetch a product group
+      description: Retrieves a single product group by ID.
+      responses:
+        '200':
+          description: The requested product group.
+          content:
+            application/vnd.api+json:
+              schema: { $ref: '#/components/schemas/ResourceDocument' }
+    patch:
+      operationId: updateProductGroup
+      tags: [Product Groups]
+      summary: Update a product group
+      description: Updates an existing product group.
+      requestBody: { $ref: '#/components/requestBodies/ResourceBody' }
+      responses:
+        '200':
+          description: The updated product group.
+          content:
+            application/vnd.api+json:
+              schema: { $ref: '#/components/schemas/ResourceDocument' }
+  /customers:
+    get:
+      operationId: listCustomers
+      tags: [Customers]
+      summary: List customers
+      description: Lists and searches customers.
+      parameters:
+        - $ref: '#/components/parameters/PageNumber'
+        - $ref: '#/components/parameters/PageSize'
+      responses:
+        '200':
+          description: A page of customers.
+          content:
+            application/vnd.api+json:
+              schema: { $ref: '#/components/schemas/ResourceCollection' }
+    post:
+      operationId: createCustomer
+      tags: [Customers]
+      summary: Create a customer
+      description: Creates a new customer.
+      requestBody: { $ref: '#/components/requestBodies/ResourceBody' }
+      responses:
+        '201':
+          description: The created customer.
+          content:
+            application/vnd.api+json:
+              schema: { $ref: '#/components/schemas/ResourceDocument' }
+  /customers/{id}:
+    parameters:
+      - $ref: '#/components/parameters/Id'
+    get:
+      operationId: getCustomer
+      tags: [Customers]
+      summary: Fetch a customer
+      description: Retrieves a single customer by ID.
+      responses:
+        '200':
+          description: The requested customer.
+          content:
+            application/vnd.api+json:
+              schema: { $ref: '#/components/schemas/ResourceDocument' }
+    patch:
+      operationId: updateCustomer
+      tags: [Customers]
+      summary: Update a customer
+      description: Updates an existing customer. Set archived to archive it.
+      requestBody: { $ref: '#/components/requestBodies/ResourceBody' }
+      responses:
+        '200':
+          description: The updated customer.
+          content:
+            application/vnd.api+json:
+              schema: { $ref: '#/components/schemas/ResourceDocument' }
+  /stock_items:
+    get:
+      operationId: listStockItems
+      tags: [Stock Items]
+      summary: List stock items
+      description: Lists the individually identifiable units of trackable products.
+      parameters:
+        - $ref: '#/components/parameters/PageNumber'
+        - $ref: '#/components/parameters/PageSize'
+      responses:
+        '200':
+          description: A page of stock items.
+          content:
+            application/vnd.api+json:
+              schema: { $ref: '#/components/schemas/ResourceCollection' }
+    post:
+      operationId: createStockItem
+      tags: [Stock Items]
+      summary: Create a stock item
+      description: Creates a new stock item for a trackable product.
+      requestBody: { $ref: '#/components/requestBodies/ResourceBody' }
+      responses:
+        '201':
+          description: The created stock item.
+          content:
+            application/vnd.api+json:
+              schema: { $ref: '#/components/schemas/ResourceDocument' }
+  /stock_items/{id}:
+    parameters:
+      - $ref: '#/components/parameters/Id'
+    get:
+      operationId: getStockItem
+      tags: [Stock Items]
+      summary: Fetch a stock item
+      description: Retrieves a single stock item by ID.
+      responses:
+        '200':
+          description: The requested stock item.
+          content:
+            application/vnd.api+json:
+              schema: { $ref: '#/components/schemas/ResourceDocument' }
+    patch:
+      operationId: updateStockItem
+      tags: [Stock Items]
+      summary: Update a stock item
+      description: Updates an existing stock item (for example its identifier or status).
+      requestBody: { $ref: '#/components/requestBodies/ResourceBody' }
+      responses:
+        '200':
+          description: The updated stock item.
+          content:
+            application/vnd.api+json:
+              schema: { $ref: '#/components/schemas/ResourceDocument' }
+  /stock_item_plannings:
+    get:
+      operationId: listStockItemPlannings
+      tags: [Stock Items]
+      summary: List stock item plannings
+      description: Lists the plannings that reserve specific stock items against orders.
+      parameters:
+        - $ref: '#/components/parameters/PageNumber'
+        - $ref: '#/components/parameters/PageSize'
+      responses:
+        '200':
+          description: A page of stock item plannings.
+          content:
+            application/vnd.api+json:
+              schema: { $ref: '#/components/schemas/ResourceCollection' }
+  /barcodes:
+    get:
+      operationId: listBarcodes
+      tags: [Stock Items]
+      summary: List barcodes
+      description: Lists barcodes attached to stock items and other resources.
+      responses:
+        '200':
+          description: A page of barcodes.
+          content:
+            application/vnd.api+json:
+              schema: { $ref: '#/components/schemas/ResourceCollection' }
+    post:
+      operationId: createBarcode
+      tags: [Stock Items]
+      summary: Create a barcode
+      description: Creates a barcode for a resource.
+      requestBody: { $ref: '#/components/requestBodies/ResourceBody' }
+      responses:
+        '201':
+          description: The created barcode.
+          content:
+            application/vnd.api+json:
+              schema: { $ref: '#/components/schemas/ResourceDocument' }
+  /availabilities:
+    get:
+      operationId: getAvailabilities
+      tags: [Availability]
+      summary: Get availabilities
+      description: Returns availability information for orders, products, and downtimes over a period.
+      responses:
+        '200':
+          description: Availability data.
+          content:
+            application/vnd.api+json:
+              schema: { $ref: '#/components/schemas/ResourceCollection' }
+  /inventory_availabilities:
+    get:
+      operationId: getInventoryAvailabilities
+      tags: [Availability]
+      summary: Get inventory availabilities
+      description: Returns the available quantity for products and bundles over a requested period.
+      responses:
+        '200':
+          description: Inventory availability data.
+          content:
+            application/vnd.api+json:
+              schema: { $ref: '#/components/schemas/ResourceCollection' }
+  /inventory_levels:
+    get:
+      operationId: getInventoryLevels
+      tags: [Availability]
+      summary: Get inventory levels
+      description: Returns stock counts for products, optionally broken down by location.
+      responses:
+        '200':
+          description: Inventory level data.
+          content:
+            application/vnd.api+json:
+              schema: { $ref: '#/components/schemas/ResourceCollection' }
+  /plannings:
+    get:
+      operationId: listPlannings
+      tags: [Availability]
+      summary: List plannings
+      description: Lists and searches plannings - the records that reserve inventory against orders for a period.
+      parameters:
+        - $ref: '#/components/parameters/PageNumber'
+        - $ref: '#/components/parameters/PageSize'
+      responses:
+        '200':
+          description: A page of plannings.
+          content:
+            application/vnd.api+json:
+              schema: { $ref: '#/components/schemas/ResourceCollection' }
+  /plannings/{id}:
+    parameters:
+      - $ref: '#/components/parameters/Id'
+    get:
+      operationId: getPlanning
+      tags: [Availability]
+      summary: Fetch a planning
+      description: Retrieves a single planning by ID.
+      responses:
+        '200':
+          description: The requested planning.
+          content:
+            application/vnd.api+json:
+              schema: { $ref: '#/components/schemas/ResourceDocument' }
+  /documents:
+    get:
+      operationId: listDocuments
+      tags: [Documents]
+      summary: List documents
+      description: Lists and searches documents - invoices, quotes, contracts, and packing slips.
+      parameters:
+        - $ref: '#/components/parameters/PageNumber'
+        - $ref: '#/components/parameters/PageSize'
+      responses:
+        '200':
+          description: A page of documents.
+          content:
+            application/vnd.api+json:
+              schema: { $ref: '#/components/schemas/ResourceCollection' }
+    post:
+      operationId: createDocument
+      tags: [Documents]
+      summary: Create a document
+      description: Creates a new document, such as an invoice for an order.
+      requestBody: { $ref: '#/components/requestBodies/ResourceBody' }
+      responses:
+        '201':
+          description: The created document.
+          content:
+            application/vnd.api+json:
+              schema: { $ref: '#/components/schemas/ResourceDocument' }
+  /documents/{id}:
+    parameters:
+      - $ref: '#/components/parameters/Id'
+    get:
+      operationId: getDocument
+      tags: [Documents]
+      summary: Fetch a document
+      description: Retrieves a single document by ID.
+      responses:
+        '200':
+          description: The requested document.
+          content:
+            application/vnd.api+json:
+              schema: { $ref: '#/components/schemas/ResourceDocument' }
+    patch:
+      operationId: updateDocument
+      tags: [Documents]
+      summary: Update a document
+      description: Updates an existing document.
+      requestBody: { $ref: '#/components/requestBodies/ResourceBody' }
+      responses:
+        '200':
+          description: The updated document.
+          content:
+            application/vnd.api+json:
+              schema: { $ref: '#/components/schemas/ResourceDocument' }
+  /payments:
+    get:
+      operationId: listPayments
+      tags: [Documents]
+      summary: List payments
+      description: Lists payments recorded against documents and orders.
+      responses:
+        '200':
+          description: A page of payments.
+          content:
+            application/vnd.api+json:
+              schema: { $ref: '#/components/schemas/ResourceCollection' }
+  /payments/{id}:
+    parameters:
+      - $ref: '#/components/parameters/Id'
+    get:
+      operationId: getPayment
+      tags: [Documents]
+      summary: Fetch a payment
+      description: Retrieves a single payment by ID.
+      responses:
+        '200':
+          description: The requested payment.
+          content:
+            application/vnd.api+json:
+              schema: { $ref: '#/components/schemas/ResourceDocument' }
+  /bundles:
+    get:
+      operationId: listBundles
+      tags: [Bundles & Collections]
+      summary: List bundles
+      description: Lists and searches bundles - packaged groups of products rented together.
+      responses:
+        '200':
+          description: A page of bundles.
+          content:
+            application/vnd.api+json:
+              schema: { $ref: '#/components/schemas/ResourceCollection' }
+    post:
+      operationId: createBundle
+      tags: [Bundles & Collections]
+      summary: Create a bundle
+      description: Creates a new bundle.
+      requestBody: { $ref: '#/components/requestBodies/ResourceBody' }
+      responses:
+        '201':
+          description: The created bundle.
+          content:
+            application/vnd.api+json:
+              schema: { $ref: '#/components/schemas/ResourceDocument' }
+  /bundles/{id}:
+    parameters:
+      - $ref: '#/components/parameters/Id'
+    get:
+      operationId: getBundle
+      tags: [Bundles & Collections]
+      summary: Fetch a bundle
+      description: Retrieves a single bundle by ID.
+      responses:
+        '200':
+          description: The requested bundle.
+          content:
+            application/vnd.api+json:
+              schema: { $ref: '#/components/schemas/ResourceDocument' }
+    patch:
+      operationId: updateBundle
+      tags: [Bundles & Collections]
+      summary: Update a bundle
+      description: Updates an existing bundle.
+      requestBody: { $ref: '#/components/requestBodies/ResourceBody' }
+      responses:
+        '200':
+          description: The updated bundle.
+          content:
+            application/vnd.api+json:
+              schema: { $ref: '#/components/schemas/ResourceDocument' }
+  /collections:
+    get:
+      operationId: listCollections
+      tags: [Bundles & Collections]
+      summary: List collections
+      description: Lists the store collections that organize catalog items.
+      responses:
+        '200':
+          description: A page of collections.
+          content:
+            application/vnd.api+json:
+              schema: { $ref: '#/components/schemas/ResourceCollection' }
+    post:
+      operationId: createCollection
+      tags: [Bundles & Collections]
+      summary: Create a collection
+      description: Creates a new collection.
+      requestBody: { $ref: '#/components/requestBodies/ResourceBody' }
+      responses:
+        '201':
+          description: The created collection.
+          content:
+            application/vnd.api+json:
+              schema: { $ref: '#/components/schemas/ResourceDocument' }
+  /webhooks:
+    post:
+      operationId: createWebhook
+      tags: [Webhooks]
+      summary: Create a webhook
+      description: Creates a webhook subscription that POSTs event payloads to a target URL over HTTPS.
+      requestBody: { $ref: '#/components/requestBodies/ResourceBody' }
+      responses:
+        '201':
+          description: The created webhook.
+          content:
+            application/vnd.api+json:
+              schema: { $ref: '#/components/schemas/ResourceDocument' }
+  /webhooks/{id}:
+    parameters:
+      - $ref: '#/components/parameters/Id'
+    get:
+      operationId: getWebhook
+      tags: [Webhooks]
+      summary: Fetch a webhook
+      description: Retrieves a single webhook subscription by ID.
+      responses:
+        '200':
+          description: The requested webhook.
+          content:
+            application/vnd.api+json:
+              schema: { $ref: '#/components/schemas/ResourceDocument' }
+  /locations:
+    get:
+      operationId: listLocations
+      tags: [Settings]
+      summary: List locations
+      description: Lists the physical locations that hold inventory and fulfill orders.
+      responses:
+        '200':
+          description: A page of locations.
+          content:
+            application/vnd.api+json:
+              schema: { $ref: '#/components/schemas/ResourceCollection' }
+    post:
+      operationId: createLocation
+      tags: [Settings]
+      summary: Create a location
+      description: Creates a new location.
+      requestBody: { $ref: '#/components/requestBodies/ResourceBody' }
+      responses:
+        '201':
+          description: The created location.
+          content:
+            application/vnd.api+json:
+              schema: { $ref: '#/components/schemas/ResourceDocument' }
+  /tax_rates:
+    get:
+      operationId: listTaxRates
+      tags: [Settings]
+      summary: List tax rates
+      description: Lists the tax rates applied to orders and documents.
+      responses:
+        '200':
+          description: A page of tax rates.
+          content:
+            application/vnd.api+json:
+              schema: { $ref: '#/components/schemas/ResourceCollection' }
+    post:
+      operationId: createTaxRate
+      tags: [Settings]
+      summary: Create a tax rate
+      description: Creates a new tax rate.
+      requestBody: { $ref: '#/components/requestBodies/ResourceBody' }
+      responses:
+        '201':
+          description: The created tax rate.
+          content:
+            application/vnd.api+json:
+              schema: { $ref: '#/components/schemas/ResourceDocument' }
+  /coupons:
+    get:
+      operationId: listCoupons
+      tags: [Settings]
+      summary: List coupons
+      description: Lists discount coupons.
+      responses:
+        '200':
+          description: A page of coupons.
+          content:
+            application/vnd.api+json:
+              schema: { $ref: '#/components/schemas/ResourceCollection' }
+    post:
+      operationId: createCoupon
+      tags: [Settings]
+      summary: Create a coupon
+      description: Creates a new coupon.
+      requestBody: { $ref: '#/components/requestBodies/ResourceBody' }
+      responses:
+        '201':
+          description: The created coupon.
+          content:
+            application/vnd.api+json:
+              schema: { $ref: '#/components/schemas/ResourceDocument' }
+  /notes:
+    get:
+      operationId: listNotes
+      tags: [Settings]
+      summary: List notes
+      description: Lists free-form notes attached to orders, customers, and other resources.
+      responses:
+        '200':
+          description: A page of notes.
+          content:
+            application/vnd.api+json:
+              schema: { $ref: '#/components/schemas/ResourceCollection' }
+    post:
+      operationId: createNote
+      tags: [Settings]
+      summary: Create a note
+      description: Creates a note on a resource.
+      requestBody: { $ref: '#/components/requestBodies/ResourceBody' }
+      responses:
+        '201':
+          description: The created note.
+          content:
+            application/vnd.api+json:
+              schema: { $ref: '#/components/schemas/ResourceDocument' }
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: >-
+        An access token created in Booqable account settings, sent as
+        "Authorization: Bearer <token>". Booqable also supports request signing
+        (single-use signed tokens using ES256, RS256, or HS256) and, on the
+        legacy v1 API, an api_key query parameter.
+  parameters:
+    Id:
+      name: id
+      in: path
+      required: true
+      description: The UUID of the resource.
+      schema: { type: string }
+    Include:
+      name: include
+      in: query
+      required: false
+      description: Comma-separated list of related resources to sideload (JSON:API include).
+      schema: { type: string }
+    PageNumber:
+      name: page[number]
+      in: query
+      required: false
+      description: The page number to return (JSON:API pagination).
+      schema: { type: integer, minimum: 1, default: 1 }
+    PageSize:
+      name: page[size]
+      in: query
+      required: false
+      description: Number of records per page. Defaults to 25.
+      schema: { type: integer, minimum: 1, default: 25 }
+  requestBodies:
+    ResourceBody:
+      required: true
+      description: A JSON:API document wrapping the resource under a "data" member.
+      content:
+        application/vnd.api+json:
+          schema: { $ref: '#/components/schemas/ResourceDocument' }
+  responses:
+    Unauthorized:
+      description: Authentication is missing or invalid.
+      content:
+        application/vnd.api+json:
+          schema: { $ref: '#/components/schemas/ErrorDocument' }
+    NotFound:
+      description: The requested resource does not exist.
+      content:
+        application/vnd.api+json:
+          schema: { $ref: '#/components/schemas/ErrorDocument' }
+    UnprocessableEntity:
+      description: The request was well-formed but failed validation.
+      content:
+        application/vnd.api+json:
+          schema: { $ref: '#/components/schemas/ErrorDocument' }
+    TooManyRequests:
+      description: Rate limit exceeded. "You're doing too many requests! Slow down!"
+      content:
+        application/vnd.api+json:
+          schema: { $ref: '#/components/schemas/ErrorDocument' }
+  schemas:
+    ResourceIdentifier:
+      type: object
+      properties:
+        type: { type: string, description: The JSON:API resource type (for example "orders"). }
+        id: { type: string, description: The resource UUID. }
+    Resource:
+      type: object
+      description: A JSON:API resource object.
+      properties:
+        type: { type: string }
+        id: { type: string }
+        attributes: { type: object, additionalProperties: true }
+        relationships: { type: object, additionalProperties: true }
+    ResourceDocument:
+      type: object
+      description: A JSON:API document containing a single primary resource.
+      properties:
+        data: { $ref: '#/components/schemas/Resource' }
+        included:
+          type: array
+          items: { $ref: '#/components/schemas/Resource' }
+        meta: { type: object, additionalProperties: true }
+    ResourceCollection:
+      type: object
+      description: A JSON:API document containing a collection of resources.
+      properties:
+        data:
+          type: array
+          items: { $ref: '#/components/schemas/Resource' }
+        included:
+          type: array
+          items: { $ref: '#/components/schemas/Resource' }
+        meta:
+          type: object
+          description: Metadata such as total_count and pagination stats.
+          additionalProperties: true
+        links: { type: object, additionalProperties: true }
+    ErrorDocument:
+      type: object
+      description: A JSON:API error document.
+      properties:
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              status: { type: string }
+              code: { type: string }
+              title: { type: string }
+              detail: { type: string }
