@@ -1,0 +1,128 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Booqable API (v4 \"Boomerang\") Availability Settings API",
+    "version": "4"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Settings",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List locations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{company}.booqable.com/api/4/locations"
+          },
+          "docs": "Lists the physical locations that hold inventory and fulfill orders."
+        },
+        {
+          "info": {
+            "name": "Create a location",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{company}.booqable.com/api/4/locations",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new location."
+        },
+        {
+          "info": {
+            "name": "List tax rates",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{company}.booqable.com/api/4/tax_rates"
+          },
+          "docs": "Lists the tax rates applied to orders and documents."
+        },
+        {
+          "info": {
+            "name": "Create a tax rate",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{company}.booqable.com/api/4/tax_rates",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new tax rate."
+        },
+        {
+          "info": {
+            "name": "List coupons",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{company}.booqable.com/api/4/coupons"
+          },
+          "docs": "Lists discount coupons."
+        },
+        {
+          "info": {
+            "name": "Create a coupon",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{company}.booqable.com/api/4/coupons",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new coupon."
+        },
+        {
+          "info": {
+            "name": "List notes",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{company}.booqable.com/api/4/notes"
+          },
+          "docs": "Lists free-form notes attached to orders, customers, and other resources."
+        },
+        {
+          "info": {
+            "name": "Create a note",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{company}.booqable.com/api/4/notes",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a note on a resource."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

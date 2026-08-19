@@ -1,0 +1,101 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Booqable API (v4 \"Boomerang\") Availability API",
+    "version": "4"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Availability",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get availabilities",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{company}.booqable.com/api/4/availabilities"
+          },
+          "docs": "Returns availability information for orders, products, and downtimes over a period."
+        },
+        {
+          "info": {
+            "name": "Get inventory availabilities",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{company}.booqable.com/api/4/inventory_availabilities"
+          },
+          "docs": "Returns the available quantity for products and bundles over a requested period."
+        },
+        {
+          "info": {
+            "name": "Get inventory levels",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{company}.booqable.com/api/4/inventory_levels"
+          },
+          "docs": "Returns stock counts for products, optionally broken down by location."
+        },
+        {
+          "info": {
+            "name": "List plannings",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{company}.booqable.com/api/4/plannings",
+            "params": [
+              {
+                "name": "page[number]",
+                "value": "",
+                "type": "query",
+                "description": "The page number to return (JSON:API pagination)."
+              },
+              {
+                "name": "page[size]",
+                "value": "",
+                "type": "query",
+                "description": "Number of records per page. Defaults to 25."
+              }
+            ]
+          },
+          "docs": "Lists and searches plannings - the records that reserve inventory against orders for a period."
+        },
+        {
+          "info": {
+            "name": "Fetch a planning",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{company}.booqable.com/api/4/plannings/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The UUID of the resource."
+              }
+            ]
+          },
+          "docs": "Retrieves a single planning by ID."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

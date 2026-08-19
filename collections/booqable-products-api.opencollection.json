@@ -1,0 +1,112 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Booqable API (v4 \"Boomerang\") Availability Products API",
+    "version": "4"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Products",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List products",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{company}.booqable.com/api/4/products",
+            "params": [
+              {
+                "name": "page[number]",
+                "value": "",
+                "type": "query",
+                "description": "The page number to return (JSON:API pagination)."
+              },
+              {
+                "name": "page[size]",
+                "value": "",
+                "type": "query",
+                "description": "Number of records per page. Defaults to 25."
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of related resources to sideload (JSON:API include)."
+              }
+            ]
+          },
+          "docs": "Lists and searches products in the catalog."
+        },
+        {
+          "info": {
+            "name": "Create a product",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{company}.booqable.com/api/4/products",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new product."
+        },
+        {
+          "info": {
+            "name": "Fetch a product",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{company}.booqable.com/api/4/products/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The UUID of the resource."
+              }
+            ]
+          },
+          "docs": "Retrieves a single product by ID."
+        },
+        {
+          "info": {
+            "name": "Update a product",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://{company}.booqable.com/api/4/products/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The UUID of the resource."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates an existing product. Set archived to archive it."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

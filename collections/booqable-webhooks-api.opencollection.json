@@ -1,0 +1,58 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Booqable API (v4 \"Boomerang\") Availability Webhooks API",
+    "version": "4"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Webhooks",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create a webhook",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{company}.booqable.com/api/4/webhooks",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a webhook subscription that POSTs event payloads to a target URL over HTTPS."
+        },
+        {
+          "info": {
+            "name": "Fetch a webhook",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{company}.booqable.com/api/4/webhooks/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The UUID of the resource."
+              }
+            ]
+          },
+          "docs": "Retrieves a single webhook subscription by ID."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,673 @@
+{
+  "item": [
+    {
+      "id": "ac36c075-9d66-4d08-998e-af014fe4b01f",
+      "name": "Bundles & Collections",
+      "description": {
+        "content": "Merchandising groups and store collections.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "a67b6381-d371-4e47-9fbf-95f87bb1825b",
+          "name": "List bundles",
+          "request": {
+            "name": "List bundles",
+            "description": {
+              "content": "Lists and searches bundles - packaged groups of products rented together.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "bundles"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "Your Booqable company slug (subdomain).",
+                  "type": "any",
+                  "value": "{{company}}",
+                  "key": "company"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "59b3d422-9105-4a8c-ac3a-f3d8dd9cbe6c",
+              "name": "A page of bundles.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "bundles"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Your Booqable company slug (subdomain).",
+                      "type": "any",
+                      "value": "{{company}}",
+                      "key": "company"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"type\": \"string\",\n      \"id\": \"string\",\n      \"attributes\": {\n        \"key_0\": 1901,\n        \"key_1\": \"string\",\n        \"key_2\": false,\n        \"key_3\": false\n      },\n      \"relationships\": {\n        \"key_0\": 119,\n        \"key_1\": \"string\",\n        \"key_2\": \"string\",\n        \"key_3\": 2944,\n        \"key_4\": 2469\n      }\n    },\n    {\n      \"type\": \"string\",\n      \"id\": \"string\",\n      \"attributes\": {\n        \"key_0\": 5536.43975511518,\n        \"key_1\": \"string\",\n        \"key_2\": 6590.311323469912\n      },\n      \"relationships\": {\n        \"key_0\": 5907,\n        \"key_1\": 2281\n      }\n    }\n  ],\n  \"included\": [\n    {\n      \"type\": \"string\",\n      \"id\": \"string\",\n      \"attributes\": {\n        \"key_0\": 4238.669635471043\n      },\n      \"relationships\": {\n        \"key_0\": \"string\"\n      }\n    },\n    {\n      \"type\": \"string\",\n      \"id\": \"string\",\n      \"attributes\": {\n        \"key_0\": true,\n        \"key_1\": 3238\n      },\n      \"relationships\": {\n        \"key_0\": true\n      }\n    }\n  ],\n  \"meta\": {\n    \"key_0\": 5837,\n    \"key_1\": false\n  },\n  \"links\": {\n    \"key_0\": false,\n    \"key_1\": 6431,\n    \"key_2\": 3043\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5b39b609-b36d-48c2-93a1-9a6f85f53d5b",
+          "name": "Create a bundle",
+          "request": {
+            "name": "Create a bundle",
+            "description": {
+              "content": "Creates a new bundle.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "bundles"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "Your Booqable company slug (subdomain).",
+                  "type": "any",
+                  "value": "{{company}}",
+                  "key": "company"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/vnd.api+json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"data\": {\n    \"type\": \"<string>\",\n    \"id\": \"<string>\",\n    \"attributes\": {\n      \"key_0\": 8330,\n      \"key_1\": 1115,\n      \"key_2\": 3966.128461653041\n    },\n    \"relationships\": {\n      \"key_0\": 5132\n    }\n  },\n  \"included\": [\n    {\n      \"type\": \"<string>\",\n      \"id\": \"<string>\",\n      \"attributes\": {\n        \"key_0\": 6931.489758159609\n      },\n      \"relationships\": {\n        \"key_0\": 4479,\n        \"key_1\": 4010.6474934194594\n      }\n    },\n    {\n      \"type\": \"<string>\",\n      \"id\": \"<string>\",\n      \"attributes\": {\n        \"key_0\": 4218.427483043824\n      },\n      \"relationships\": {\n        \"key_0\": 5392.780877083929,\n        \"key_1\": true\n      }\n    }\n  ],\n  \"meta\": {\n    \"key_0\": \"string\",\n    \"key_1\": \"string\",\n    \"key_2\": \"string\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "aa31f679-84fa-4f8a-9b1f-a18bd5753557",
+              "name": "The created bundle.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "bundles"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Your Booqable company slug (subdomain).",
+                      "type": "any",
+                      "value": "{{company}}",
+                      "key": "company"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"type\": \"<string>\",\n    \"id\": \"<string>\",\n    \"attributes\": {\n      \"key_0\": 7483.886242302191\n    },\n    \"relationships\": {\n      \"key_0\": 6937.257788535596,\n      \"key_1\": 6762,\n      \"key_2\": false\n    }\n  },\n  \"included\": [\n    {\n      \"type\": \"<string>\",\n      \"id\": \"<string>\",\n      \"attributes\": {\n        \"key_0\": 6437.741927918806,\n        \"key_1\": 8593.932462202773,\n        \"key_2\": 4592\n      },\n      \"relationships\": {\n        \"key_0\": true,\n        \"key_1\": 5331.669633790703\n      }\n    },\n    {\n      \"type\": \"<string>\",\n      \"id\": \"<string>\",\n      \"attributes\": {\n        \"key_0\": 2390,\n        \"key_1\": false\n      },\n      \"relationships\": {\n        \"key_0\": true\n      }\n    }\n  ],\n  \"meta\": {\n    \"key_0\": 4127.326900038611,\n    \"key_1\": 3602.902028403965,\n    \"key_2\": \"string\",\n    \"key_3\": \"string\",\n    \"key_4\": true\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f4c968ba-e0c6-44cd-b13c-2abd47b1230e",
+          "name": "Fetch a bundle",
+          "request": {
+            "name": "Fetch a bundle",
+            "description": {
+              "content": "Retrieves a single bundle by ID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "bundles",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) The UUID of the resource."
+                },
+                {
+                  "description": "Your Booqable company slug (subdomain).",
+                  "type": "any",
+                  "value": "{{company}}",
+                  "key": "company"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "dc997110-9889-491c-b0bb-5938366b1204",
+              "name": "The requested bundle.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "bundles",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The UUID of the resource."
+                    },
+                    {
+                      "description": "Your Booqable company slug (subdomain).",
+                      "type": "any",
+                      "value": "{{company}}",
+                      "key": "company"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"type\": \"<string>\",\n    \"id\": \"<string>\",\n    \"attributes\": {\n      \"key_0\": 7483.886242302191\n    },\n    \"relationships\": {\n      \"key_0\": 6937.257788535596,\n      \"key_1\": 6762,\n      \"key_2\": false\n    }\n  },\n  \"included\": [\n    {\n      \"type\": \"<string>\",\n      \"id\": \"<string>\",\n      \"attributes\": {\n        \"key_0\": 6437.741927918806,\n        \"key_1\": 8593.932462202773,\n        \"key_2\": 4592\n      },\n      \"relationships\": {\n        \"key_0\": true,\n        \"key_1\": 5331.669633790703\n      }\n    },\n    {\n      \"type\": \"<string>\",\n      \"id\": \"<string>\",\n      \"attributes\": {\n        \"key_0\": 2390,\n        \"key_1\": false\n      },\n      \"relationships\": {\n        \"key_0\": true\n      }\n    }\n  ],\n  \"meta\": {\n    \"key_0\": 4127.326900038611,\n    \"key_1\": 3602.902028403965,\n    \"key_2\": \"string\",\n    \"key_3\": \"string\",\n    \"key_4\": true\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9a05ad6f-c2aa-4226-aaef-d20dce06b71d",
+          "name": "Update a bundle",
+          "request": {
+            "name": "Update a bundle",
+            "description": {
+              "content": "Updates an existing bundle.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "bundles",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) The UUID of the resource."
+                },
+                {
+                  "description": "Your Booqable company slug (subdomain).",
+                  "type": "any",
+                  "value": "{{company}}",
+                  "key": "company"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/vnd.api+json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"data\": {\n    \"type\": \"<string>\",\n    \"id\": \"<string>\",\n    \"attributes\": {\n      \"key_0\": false,\n      \"key_1\": 9835.509010943315,\n      \"key_2\": 3358.4383575612887\n    },\n    \"relationships\": {\n      \"key_0\": \"string\",\n      \"key_1\": 8127.868542727302\n    }\n  },\n  \"included\": [\n    {\n      \"type\": \"<string>\",\n      \"id\": \"<string>\",\n      \"attributes\": {\n        \"key_0\": false,\n        \"key_1\": \"string\"\n      },\n      \"relationships\": {\n        \"key_0\": \"string\",\n        \"key_1\": 7351.873138083372,\n        \"key_2\": \"string\"\n      }\n    },\n    {\n      \"type\": \"<string>\",\n      \"id\": \"<string>\",\n      \"attributes\": {\n        \"key_0\": 7763,\n        \"key_1\": 6680\n      },\n      \"relationships\": {\n        \"key_0\": 5051.081700947554,\n        \"key_1\": false\n      }\n    }\n  ],\n  \"meta\": {\n    \"key_0\": 9098,\n    \"key_1\": 8545.332490310304\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "acdcbe80-9e76-4ec8-90a2-2e63794c7e8e",
+              "name": "The updated bundle.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "bundles",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The UUID of the resource."
+                    },
+                    {
+                      "description": "Your Booqable company slug (subdomain).",
+                      "type": "any",
+                      "value": "{{company}}",
+                      "key": "company"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"type\": \"<string>\",\n    \"id\": \"<string>\",\n    \"attributes\": {\n      \"key_0\": 7483.886242302191\n    },\n    \"relationships\": {\n      \"key_0\": 6937.257788535596,\n      \"key_1\": 6762,\n      \"key_2\": false\n    }\n  },\n  \"included\": [\n    {\n      \"type\": \"<string>\",\n      \"id\": \"<string>\",\n      \"attributes\": {\n        \"key_0\": 6437.741927918806,\n        \"key_1\": 8593.932462202773,\n        \"key_2\": 4592\n      },\n      \"relationships\": {\n        \"key_0\": true,\n        \"key_1\": 5331.669633790703\n      }\n    },\n    {\n      \"type\": \"<string>\",\n      \"id\": \"<string>\",\n      \"attributes\": {\n        \"key_0\": 2390,\n        \"key_1\": false\n      },\n      \"relationships\": {\n        \"key_0\": true\n      }\n    }\n  ],\n  \"meta\": {\n    \"key_0\": 4127.326900038611,\n    \"key_1\": 3602.902028403965,\n    \"key_2\": \"string\",\n    \"key_3\": \"string\",\n    \"key_4\": true\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8210fa18-3472-4f7d-a1b9-e9542445a3c8",
+          "name": "List collections",
+          "request": {
+            "name": "List collections",
+            "description": {
+              "content": "Lists the store collections that organize catalog items.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "collections"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "Your Booqable company slug (subdomain).",
+                  "type": "any",
+                  "value": "{{company}}",
+                  "key": "company"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "639b944a-f498-4866-8122-e598f79afa29",
+              "name": "A page of collections.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "collections"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Your Booqable company slug (subdomain).",
+                      "type": "any",
+                      "value": "{{company}}",
+                      "key": "company"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"type\": \"<string>\",\n      \"id\": \"<string>\",\n      \"attributes\": {\n        \"key_0\": \"string\"\n      },\n      \"relationships\": {\n        \"key_0\": \"string\"\n      }\n    },\n    {\n      \"type\": \"<string>\",\n      \"id\": \"<string>\",\n      \"attributes\": {\n        \"key_0\": \"string\"\n      },\n      \"relationships\": {\n        \"key_0\": 8942,\n        \"key_1\": 4822.906945207379,\n        \"key_2\": true\n      }\n    }\n  ],\n  \"included\": [\n    {\n      \"type\": \"<string>\",\n      \"id\": \"<string>\",\n      \"attributes\": {\n        \"key_0\": 2036,\n        \"key_1\": 8845.026943748742,\n        \"key_2\": \"string\",\n        \"key_3\": \"string\"\n      },\n      \"relationships\": {\n        \"key_0\": \"string\",\n        \"key_1\": 3145,\n        \"key_2\": 5345.642519028003,\n        \"key_3\": 7096\n      }\n    },\n    {\n      \"type\": \"<string>\",\n      \"id\": \"<string>\",\n      \"attributes\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\"\n      },\n      \"relationships\": {\n        \"key_0\": false,\n        \"key_1\": \"string\"\n      }\n    }\n  ],\n  \"meta\": {\n    \"key_0\": 3358.8276007967734,\n    \"key_1\": false,\n    \"key_2\": \"string\",\n    \"key_3\": \"string\"\n  },\n  \"links\": {\n    \"key_0\": \"string\",\n    \"key_1\": 9993.362840731334\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8921ae1c-45fa-4e9f-91b7-877435e41c5b",
+          "name": "Create a collection",
+          "request": {
+            "name": "Create a collection",
+            "description": {
+              "content": "Creates a new collection.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "collections"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "Your Booqable company slug (subdomain).",
+                  "type": "any",
+                  "value": "{{company}}",
+                  "key": "company"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/vnd.api+json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"data\": {\n    \"type\": \"<string>\",\n    \"id\": \"<string>\",\n    \"attributes\": {\n      \"key_0\": false,\n      \"key_1\": 9835.509010943315,\n      \"key_2\": 3358.4383575612887\n    },\n    \"relationships\": {\n      \"key_0\": \"string\",\n      \"key_1\": 8127.868542727302\n    }\n  },\n  \"included\": [\n    {\n      \"type\": \"<string>\",\n      \"id\": \"<string>\",\n      \"attributes\": {\n        \"key_0\": false,\n        \"key_1\": \"string\"\n      },\n      \"relationships\": {\n        \"key_0\": \"string\",\n        \"key_1\": 7351.873138083372,\n        \"key_2\": \"string\"\n      }\n    },\n    {\n      \"type\": \"<string>\",\n      \"id\": \"<string>\",\n      \"attributes\": {\n        \"key_0\": 7763,\n        \"key_1\": 6680\n      },\n      \"relationships\": {\n        \"key_0\": 5051.081700947554,\n        \"key_1\": false\n      }\n    }\n  ],\n  \"meta\": {\n    \"key_0\": 9098,\n    \"key_1\": 8545.332490310304\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "70cf646c-a6f0-4f65-be72-c43d67df08e6",
+              "name": "The created collection.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "collections"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Your Booqable company slug (subdomain).",
+                      "type": "any",
+                      "value": "{{company}}",
+                      "key": "company"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"type\": \"<string>\",\n    \"id\": \"<string>\",\n    \"attributes\": {\n      \"key_0\": 7483.886242302191\n    },\n    \"relationships\": {\n      \"key_0\": 6937.257788535596,\n      \"key_1\": 6762,\n      \"key_2\": false\n    }\n  },\n  \"included\": [\n    {\n      \"type\": \"<string>\",\n      \"id\": \"<string>\",\n      \"attributes\": {\n        \"key_0\": 6437.741927918806,\n        \"key_1\": 8593.932462202773,\n        \"key_2\": 4592\n      },\n      \"relationships\": {\n        \"key_0\": true,\n        \"key_1\": 5331.669633790703\n      }\n    },\n    {\n      \"type\": \"<string>\",\n      \"id\": \"<string>\",\n      \"attributes\": {\n        \"key_0\": 2390,\n        \"key_1\": false\n      },\n      \"relationships\": {\n        \"key_0\": true\n      }\n    }\n  ],\n  \"meta\": {\n    \"key_0\": 4127.326900038611,\n    \"key_1\": 3602.902028403965,\n    \"key_2\": \"string\",\n    \"key_3\": \"string\",\n    \"key_4\": true\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "Your Booqable company slug (subdomain).",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "your-company",
+      "key": "company"
+    },
+    {
+      "type": "string",
+      "value": "https://{{company}}.booqable.com/api/4",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "ec8e8d88-0e86-406c-bfc9-11722d68b650",
+    "name": "Booqable API (v4 \"Boomerang\") Availability Bundles & Collections API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Booqable API is a RESTful, JSON:API-compliant interface for managing an equipment and inventory rental business - orders, products, product groups, customers, stock items, availability and plannings, documents and invoices, payments, bundles, collections, and webhooks. Requests are directed to a company-specific host in the form https://{company}.booqable.com/api/4 and authenticated with an access token (Bearer) or a signed single-use request. The default response media type is JSON:API (application/vnd.api+json); a nested JSON representation is available by appending .json to a path. The API is documented as still in Beta and may introduce non-backwards-compatible changes. A legacy v1 API also remains documented. This description was authored by API Evangelist from the public Booqable developer documentation; request and response schemas are modeled and simplified.\n\nContact Support:\n Name: Booqable",
+      "type": "text/plain"
+    }
+  }
+}

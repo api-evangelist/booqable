@@ -1,0 +1,112 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Booqable API (v4 \"Boomerang\") Availability Product Groups API",
+    "version": "4"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Product Groups",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List product groups",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{company}.booqable.com/api/4/product_groups",
+            "params": [
+              {
+                "name": "page[number]",
+                "value": "",
+                "type": "query",
+                "description": "The page number to return (JSON:API pagination)."
+              },
+              {
+                "name": "page[size]",
+                "value": "",
+                "type": "query",
+                "description": "Number of records per page. Defaults to 25."
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of related resources to sideload (JSON:API include)."
+              }
+            ]
+          },
+          "docs": "Lists and searches product groups."
+        },
+        {
+          "info": {
+            "name": "Create a product group",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{company}.booqable.com/api/4/product_groups",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new product group."
+        },
+        {
+          "info": {
+            "name": "Fetch a product group",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{company}.booqable.com/api/4/product_groups/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The UUID of the resource."
+              }
+            ]
+          },
+          "docs": "Retrieves a single product group by ID."
+        },
+        {
+          "info": {
+            "name": "Update a product group",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://{company}.booqable.com/api/4/product_groups/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The UUID of the resource."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates an existing product group."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

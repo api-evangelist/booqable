@@ -1,0 +1,157 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Booqable API (v4 \"Boomerang\") Availability Stock Items API",
+    "version": "4"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Stock Items",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List stock items",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{company}.booqable.com/api/4/stock_items",
+            "params": [
+              {
+                "name": "page[number]",
+                "value": "",
+                "type": "query",
+                "description": "The page number to return (JSON:API pagination)."
+              },
+              {
+                "name": "page[size]",
+                "value": "",
+                "type": "query",
+                "description": "Number of records per page. Defaults to 25."
+              }
+            ]
+          },
+          "docs": "Lists the individually identifiable units of trackable products."
+        },
+        {
+          "info": {
+            "name": "Create a stock item",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{company}.booqable.com/api/4/stock_items",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new stock item for a trackable product."
+        },
+        {
+          "info": {
+            "name": "Fetch a stock item",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{company}.booqable.com/api/4/stock_items/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The UUID of the resource."
+              }
+            ]
+          },
+          "docs": "Retrieves a single stock item by ID."
+        },
+        {
+          "info": {
+            "name": "Update a stock item",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://{company}.booqable.com/api/4/stock_items/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The UUID of the resource."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates an existing stock item (for example its identifier or status)."
+        },
+        {
+          "info": {
+            "name": "List stock item plannings",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{company}.booqable.com/api/4/stock_item_plannings",
+            "params": [
+              {
+                "name": "page[number]",
+                "value": "",
+                "type": "query",
+                "description": "The page number to return (JSON:API pagination)."
+              },
+              {
+                "name": "page[size]",
+                "value": "",
+                "type": "query",
+                "description": "Number of records per page. Defaults to 25."
+              }
+            ]
+          },
+          "docs": "Lists the plannings that reserve specific stock items against orders."
+        },
+        {
+          "info": {
+            "name": "List barcodes",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{company}.booqable.com/api/4/barcodes"
+          },
+          "docs": "Lists barcodes attached to stock items and other resources."
+        },
+        {
+          "info": {
+            "name": "Create a barcode",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{company}.booqable.com/api/4/barcodes",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a barcode for a resource."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

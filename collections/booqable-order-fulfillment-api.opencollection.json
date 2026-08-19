@@ -1,0 +1,181 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Booqable API (v4 \"Boomerang\") Availability Order Fulfillment API",
+    "version": "4"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Order Fulfillment",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Book order lines",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{company}.booqable.com/api/4/order_fulfillments/book",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Books products and quantities onto an order, reserving inventory for the rental period."
+        },
+        {
+          "info": {
+            "name": "Specify stock items",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{company}.booqable.com/api/4/order_fulfillments/specify",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Assigns specific stock items to trackable lines on an order."
+        },
+        {
+          "info": {
+            "name": "Start fulfillment",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{company}.booqable.com/api/4/order_fulfillments/start",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Starts (picks up / checks out) the assigned stock items on an order."
+        },
+        {
+          "info": {
+            "name": "Stop fulfillment",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{company}.booqable.com/api/4/order_fulfillments/stop",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Stops (returns / checks in) the started stock items on an order."
+        },
+        {
+          "info": {
+            "name": "Transition order status",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{company}.booqable.com/api/4/order_status_transitions/transition",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Moves an order to a new status (for example new, concept, reserved, started, stopped, archived)."
+        },
+        {
+          "info": {
+            "name": "List lines",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{company}.booqable.com/api/4/lines",
+            "params": [
+              {
+                "name": "page[number]",
+                "value": "",
+                "type": "query",
+                "description": "The page number to return (JSON:API pagination)."
+              },
+              {
+                "name": "page[size]",
+                "value": "",
+                "type": "query",
+                "description": "Number of records per page. Defaults to 25."
+              }
+            ]
+          },
+          "docs": "Lists the line items across orders."
+        },
+        {
+          "info": {
+            "name": "Create a line",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{company}.booqable.com/api/4/lines",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Adds a line item to an order."
+        },
+        {
+          "info": {
+            "name": "Fetch a line",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{company}.booqable.com/api/4/lines/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The UUID of the resource."
+              }
+            ]
+          },
+          "docs": "Retrieves a single line by ID."
+        },
+        {
+          "info": {
+            "name": "Update a line",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://{company}.booqable.com/api/4/lines/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The UUID of the resource."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates an existing line."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
