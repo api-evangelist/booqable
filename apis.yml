@@ -35,7 +35,7 @@ tags:
 - JSON:API
 created: '2026-07-03'
 modified: '2026-07-03'
-specificationVersion: '0.19'
+specificationVersion: '0.23'
 apis:
 - aid: booqable:booqable-availability-api
   name: Booqable Availability API
