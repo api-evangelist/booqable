@@ -30,6 +30,14 @@ tags:
 - Inventory
 - Equipment Rental
 - Bookings
+- Order
+- E-Commerce
+- JSON:API
+tags_raw:
+- Rental Management
+- Inventory
+- Equipment Rental
+- Bookings
 - Orders
 - E-commerce
 - JSON:API
@@ -133,6 +141,8 @@ apis:
   humanURL: https://developers.booqable.com/
   baseURL: https://{company}.booqable.com/api/4
   tags:
+  - Order
+  tags_raw:
   - Orders
   properties:
   - type: OpenAPI
@@ -169,6 +179,8 @@ apis:
   humanURL: https://developers.booqable.com/
   baseURL: https://{company}.booqable.com/api/4
   tags:
+  - Product
+  tags_raw:
   - Products
   properties:
   - type: OpenAPI
@@ -223,6 +235,8 @@ apis:
   humanURL: https://developers.booqable.com/
   baseURL: https://{company}.booqable.com/api/4
   tags:
+  - Webhook
+  tags_raw:
   - Webhooks
   properties:
   - type: OpenAPI
