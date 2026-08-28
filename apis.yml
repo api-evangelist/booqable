@@ -11,6 +11,18 @@ description: Booqable is equipment and inventory rental management software for 
   (Bearer) or a signed single-use request. A legacy v1 API remains documented. The
   API lets developers manage orders, products, product groups, customers, stock
   items, availability and plannings, documents, payments, and webhooks.
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: true
+  label: Hosted service · you call their endpoint
+  confidence: high
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: freemium
   onboarding: self-serve
