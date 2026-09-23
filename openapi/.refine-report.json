@@ -1,17 +1,7 @@
 {
   "provider": "booqable",
   "sources": [
-    "booqable-availability-api-openapi.yml",
-    "booqable-bundles-collections-api-openapi.yml",
-    "booqable-customers-api-openapi.yml",
-    "booqable-documents-api-openapi.yml",
-    "booqable-order-fulfillment-api-openapi.yml",
-    "booqable-orders-api-openapi.yml",
-    "booqable-product-groups-api-openapi.yml",
-    "booqable-products-api-openapi.yml",
-    "booqable-settings-api-openapi.yml",
-    "booqable-stock-items-api-openapi.yml",
-    "booqable-webhooks-api-openapi.yml"
+    "_original/booqable-openapi.yml"
   ],
   "outputs": [
     "booqable-availability-api-openapi.yml",
@@ -29,6 +19,22 @@
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "booqable-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "booqable-availability-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "booqable-bundles-collections-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "booqable-customers-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "booqable-documents-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "booqable-order-fulfillment-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "booqable-orders-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "booqable-product-groups-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "booqable-products-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "booqable-settings-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "booqable-stock-items-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "booqable-webhooks-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }
