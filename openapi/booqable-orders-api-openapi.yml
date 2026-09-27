@@ -117,39 +117,14 @@ paths:
         '422':
           $ref: '#/components/responses/UnprocessableEntity'
 components:
-  parameters:
-    Id:
-      name: id
-      in: path
+  requestBodies:
+    ResourceBody:
       required: true
-      description: The UUID of the resource.
-      schema:
-        type: string
-    PageSize:
-      name: page[size]
-      in: query
-      required: false
-      description: Number of records per page. Defaults to 25.
-      schema:
-        type: integer
-        minimum: 1
-        default: 25
-    PageNumber:
-      name: page[number]
-      in: query
-      required: false
-      description: The page number to return (JSON:API pagination).
-      schema:
-        type: integer
-        minimum: 1
-        default: 1
-    Include:
-      name: include
-      in: query
-      required: false
-      description: Comma-separated list of related resources to sideload (JSON:API include).
-      schema:
-        type: string
+      description: A JSON:API document wrapping the resource under a "data" member.
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/ResourceDocument'
   responses:
     Unauthorized:
       description: Authentication is missing or invalid.
@@ -163,33 +138,19 @@ components:
         application/vnd.api+json:
           schema:
             $ref: '#/components/schemas/ErrorDocument'
-    NotFound:
-      description: The requested resource does not exist.
-      content:
-        application/vnd.api+json:
-          schema:
-            $ref: '#/components/schemas/ErrorDocument'
     TooManyRequests:
       description: Rate limit exceeded. "You're doing too many requests! Slow down!"
       content:
         application/vnd.api+json:
           schema:
             $ref: '#/components/schemas/ErrorDocument'
+    NotFound:
+      description: The requested resource does not exist.
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/ErrorDocument'
   schemas:
-    Resource:
-      type: object
-      description: A JSON:API resource object.
-      properties:
-        type:
-          type: string
-        id:
-          type: string
-        attributes:
-          type: object
-          additionalProperties: true
-        relationships:
-          type: object
-          additionalProperties: true
     ResourceDocument:
       type: object
       description: A JSON:API document containing a single primary resource.
@@ -203,23 +164,6 @@ components:
         meta:
           type: object
           additionalProperties: true
-    ErrorDocument:
-      type: object
-      description: A JSON:API error document.
-      properties:
-        errors:
-          type: array
-          items:
-            type: object
-            properties:
-              status:
-                type: string
-              code:
-                type: string
-              title:
-                type: string
-              detail:
-                type: string
     ResourceCollection:
       type: object
       description: A JSON:API document containing a collection of resources.
@@ -239,14 +183,70 @@ components:
         links:
           type: object
           additionalProperties: true
-  requestBodies:
-    ResourceBody:
+    Resource:
+      type: object
+      description: A JSON:API resource object.
+      properties:
+        type:
+          type: string
+        id:
+          type: string
+        attributes:
+          type: object
+          additionalProperties: true
+        relationships:
+          type: object
+          additionalProperties: true
+    ErrorDocument:
+      type: object
+      description: A JSON:API error document.
+      properties:
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              status:
+                type: string
+              code:
+                type: string
+              title:
+                type: string
+              detail:
+                type: string
+  parameters:
+    Include:
+      name: include
+      in: query
+      required: false
+      description: Comma-separated list of related resources to sideload (JSON:API include).
+      schema:
+        type: string
+    Id:
+      name: id
+      in: path
       required: true
-      description: A JSON:API document wrapping the resource under a "data" member.
-      content:
-        application/vnd.api+json:
-          schema:
-            $ref: '#/components/schemas/ResourceDocument'
+      description: The UUID of the resource.
+      schema:
+        type: string
+    PageNumber:
+      name: page[number]
+      in: query
+      required: false
+      description: The page number to return (JSON:API pagination).
+      schema:
+        type: integer
+        minimum: 1
+        default: 1
+    PageSize:
+      name: page[size]
+      in: query
+      required: false
+      description: Number of records per page. Defaults to 25.
+      schema:
+        type: integer
+        minimum: 1
+        default: 25
   securitySchemes:
     bearerAuth:
       type: http

@@ -148,19 +148,6 @@ components:
           schema:
             $ref: '#/components/schemas/ResourceDocument'
   schemas:
-    ResourceDocument:
-      type: object
-      description: A JSON:API document containing a single primary resource.
-      properties:
-        data:
-          $ref: '#/components/schemas/Resource'
-        included:
-          type: array
-          items:
-            $ref: '#/components/schemas/Resource'
-        meta:
-          type: object
-          additionalProperties: true
     Resource:
       type: object
       description: A JSON:API resource object.
@@ -173,6 +160,19 @@ components:
           type: object
           additionalProperties: true
         relationships:
+          type: object
+          additionalProperties: true
+    ResourceDocument:
+      type: object
+      description: A JSON:API document containing a single primary resource.
+      properties:
+        data:
+          $ref: '#/components/schemas/Resource'
+        included:
+          type: array
+          items:
+            $ref: '#/components/schemas/Resource'
+        meta:
           type: object
           additionalProperties: true
     ResourceCollection:

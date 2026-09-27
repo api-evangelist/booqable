@@ -132,47 +132,15 @@ paths:
               schema:
                 $ref: '#/components/schemas/ResourceDocument'
 components:
-  parameters:
-    Id:
-      name: id
-      in: path
+  requestBodies:
+    ResourceBody:
       required: true
-      description: The UUID of the resource.
-      schema:
-        type: string
-    PageSize:
-      name: page[size]
-      in: query
-      required: false
-      description: Number of records per page. Defaults to 25.
-      schema:
-        type: integer
-        minimum: 1
-        default: 25
-    PageNumber:
-      name: page[number]
-      in: query
-      required: false
-      description: The page number to return (JSON:API pagination).
-      schema:
-        type: integer
-        minimum: 1
-        default: 1
+      description: A JSON:API document wrapping the resource under a "data" member.
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/ResourceDocument'
   schemas:
-    Resource:
-      type: object
-      description: A JSON:API resource object.
-      properties:
-        type:
-          type: string
-        id:
-          type: string
-        attributes:
-          type: object
-          additionalProperties: true
-        relationships:
-          type: object
-          additionalProperties: true
     ResourceDocument:
       type: object
       description: A JSON:API document containing a single primary resource.
@@ -205,14 +173,46 @@ components:
         links:
           type: object
           additionalProperties: true
-  requestBodies:
-    ResourceBody:
+    Resource:
+      type: object
+      description: A JSON:API resource object.
+      properties:
+        type:
+          type: string
+        id:
+          type: string
+        attributes:
+          type: object
+          additionalProperties: true
+        relationships:
+          type: object
+          additionalProperties: true
+  parameters:
+    Id:
+      name: id
+      in: path
       required: true
-      description: A JSON:API document wrapping the resource under a "data" member.
-      content:
-        application/vnd.api+json:
-          schema:
-            $ref: '#/components/schemas/ResourceDocument'
+      description: The UUID of the resource.
+      schema:
+        type: string
+    PageNumber:
+      name: page[number]
+      in: query
+      required: false
+      description: The page number to return (JSON:API pagination).
+      schema:
+        type: integer
+        minimum: 1
+        default: 1
+    PageSize:
+      name: page[size]
+      in: query
+      required: false
+      description: Number of records per page. Defaults to 25.
+      schema:
+        type: integer
+        minimum: 1
+        default: 25
   securitySchemes:
     bearerAuth:
       type: http
