@@ -117,17 +117,9 @@ paths:
         '422':
           $ref: '#/components/responses/UnprocessableEntity'
 components:
-  requestBodies:
-    ResourceBody:
-      required: true
-      description: A JSON:API document wrapping the resource under a "data" member.
-      content:
-        application/vnd.api+json:
-          schema:
-            $ref: '#/components/schemas/ResourceDocument'
   responses:
-    Unauthorized:
-      description: Authentication is missing or invalid.
+    TooManyRequests:
+      description: Rate limit exceeded. "You're doing too many requests! Slow down!"
       content:
         application/vnd.api+json:
           schema:
@@ -138,8 +130,8 @@ components:
         application/vnd.api+json:
           schema:
             $ref: '#/components/schemas/ErrorDocument'
-    TooManyRequests:
-      description: Rate limit exceeded. "You're doing too many requests! Slow down!"
+    Unauthorized:
+      description: Authentication is missing or invalid.
       content:
         application/vnd.api+json:
           schema:
@@ -151,38 +143,6 @@ components:
           schema:
             $ref: '#/components/schemas/ErrorDocument'
   schemas:
-    ResourceDocument:
-      type: object
-      description: A JSON:API document containing a single primary resource.
-      properties:
-        data:
-          $ref: '#/components/schemas/Resource'
-        included:
-          type: array
-          items:
-            $ref: '#/components/schemas/Resource'
-        meta:
-          type: object
-          additionalProperties: true
-    ResourceCollection:
-      type: object
-      description: A JSON:API document containing a collection of resources.
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/Resource'
-        included:
-          type: array
-          items:
-            $ref: '#/components/schemas/Resource'
-        meta:
-          type: object
-          description: Metadata such as total_count and pagination stats.
-          additionalProperties: true
-        links:
-          type: object
-          additionalProperties: true
     Resource:
       type: object
       description: A JSON:API resource object.
@@ -214,6 +174,46 @@ components:
                 type: string
               detail:
                 type: string
+    ResourceCollection:
+      type: object
+      description: A JSON:API document containing a collection of resources.
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Resource'
+        included:
+          type: array
+          items:
+            $ref: '#/components/schemas/Resource'
+        meta:
+          type: object
+          description: Metadata such as total_count and pagination stats.
+          additionalProperties: true
+        links:
+          type: object
+          additionalProperties: true
+    ResourceDocument:
+      type: object
+      description: A JSON:API document containing a single primary resource.
+      properties:
+        data:
+          $ref: '#/components/schemas/Resource'
+        included:
+          type: array
+          items:
+            $ref: '#/components/schemas/Resource'
+        meta:
+          type: object
+          additionalProperties: true
+  requestBodies:
+    ResourceBody:
+      required: true
+      description: A JSON:API document wrapping the resource under a "data" member.
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/ResourceDocument'
   parameters:
     Include:
       name: include

@@ -99,17 +99,18 @@ paths:
                 $ref: '#/components/schemas/ResourceDocument'
 components:
   schemas:
-    ResourceDocument:
+    Resource:
       type: object
-      description: A JSON:API document containing a single primary resource.
+      description: A JSON:API resource object.
       properties:
-        data:
-          $ref: '#/components/schemas/Resource'
-        included:
-          type: array
-          items:
-            $ref: '#/components/schemas/Resource'
-        meta:
+        type:
+          type: string
+        id:
+          type: string
+        attributes:
+          type: object
+          additionalProperties: true
+        relationships:
           type: object
           additionalProperties: true
     ResourceCollection:
@@ -131,18 +132,17 @@ components:
         links:
           type: object
           additionalProperties: true
-    Resource:
+    ResourceDocument:
       type: object
-      description: A JSON:API resource object.
+      description: A JSON:API document containing a single primary resource.
       properties:
-        type:
-          type: string
-        id:
-          type: string
-        attributes:
-          type: object
-          additionalProperties: true
-        relationships:
+        data:
+          $ref: '#/components/schemas/Resource'
+        included:
+          type: array
+          items:
+            $ref: '#/components/schemas/Resource'
+        meta:
           type: object
           additionalProperties: true
   parameters:

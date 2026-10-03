@@ -168,47 +168,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/ResourceDocument'
 components:
-  requestBodies:
-    ResourceBody:
-      required: true
-      description: A JSON:API document wrapping the resource under a "data" member.
-      content:
-        application/vnd.api+json:
-          schema:
-            $ref: '#/components/schemas/ResourceDocument'
   schemas:
-    ResourceDocument:
-      type: object
-      description: A JSON:API document containing a single primary resource.
-      properties:
-        data:
-          $ref: '#/components/schemas/Resource'
-        included:
-          type: array
-          items:
-            $ref: '#/components/schemas/Resource'
-        meta:
-          type: object
-          additionalProperties: true
-    ResourceCollection:
-      type: object
-      description: A JSON:API document containing a collection of resources.
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/Resource'
-        included:
-          type: array
-          items:
-            $ref: '#/components/schemas/Resource'
-        meta:
-          type: object
-          description: Metadata such as total_count and pagination stats.
-          additionalProperties: true
-        links:
-          type: object
-          additionalProperties: true
     Resource:
       type: object
       description: A JSON:API resource object.
@@ -240,6 +200,53 @@ components:
                 type: string
               detail:
                 type: string
+    ResourceCollection:
+      type: object
+      description: A JSON:API document containing a collection of resources.
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Resource'
+        included:
+          type: array
+          items:
+            $ref: '#/components/schemas/Resource'
+        meta:
+          type: object
+          description: Metadata such as total_count and pagination stats.
+          additionalProperties: true
+        links:
+          type: object
+          additionalProperties: true
+    ResourceDocument:
+      type: object
+      description: A JSON:API document containing a single primary resource.
+      properties:
+        data:
+          $ref: '#/components/schemas/Resource'
+        included:
+          type: array
+          items:
+            $ref: '#/components/schemas/Resource'
+        meta:
+          type: object
+          additionalProperties: true
+  requestBodies:
+    ResourceBody:
+      required: true
+      description: A JSON:API document wrapping the resource under a "data" member.
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/ResourceDocument'
+  responses:
+    UnprocessableEntity:
+      description: The request was well-formed but failed validation.
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/ErrorDocument'
   parameters:
     Id:
       name: id
@@ -266,13 +273,6 @@ components:
         type: integer
         minimum: 1
         default: 25
-  responses:
-    UnprocessableEntity:
-      description: The request was well-formed but failed validation.
-      content:
-        application/vnd.api+json:
-          schema:
-            $ref: '#/components/schemas/ErrorDocument'
   securitySchemes:
     bearerAuth:
       type: http
