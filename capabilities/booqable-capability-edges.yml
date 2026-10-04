@@ -1,0 +1,57 @@
+slug: booqable
+provider: Booqable
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Software & Technology
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 4
+edges:
+- tag: Order Fulfillment
+  spec_file: booqable-order-fulfillment-api-openapi.yml
+  capability_id: BC-520.40
+  capability_id_l1: BC-520
+  capability_name: Order Fulfilment Management
+  confidence: 0.85
+  evidence: POST /order_fulfillments/start startOrderFulfillment Start fulfillment; POST /order_status_transitions/transition
+    Transition order status
+  reason: Operations book order lines, specify stock items against them, start/stop fulfilment and transition
+    order status — order promising and fulfilment orchestration.
+- tag: Customers
+  spec_file: booqable-customers-api-openapi.yml
+  capability_id: BC-420.10
+  capability_id_l1: BC-420
+  capability_name: Customer Data Management
+  confidence: 0.8
+  evidence: POST /customers createCustomer Create a customer; GET /customers listCustomers List customers
+  reason: Straight CRUD over customer master records in a rental business system — customer data management.
+    No lifecycle, segmentation or loyalty operations present, so the data-management L2 is the honest
+    pick.
+- tag: Stock Items
+  spec_file: booqable-stock-items-api-openapi.yml
+  capability_id: BC-530
+  capability_id_l1: BC-530
+  capability_name: Inventory Management
+  confidence: 0.75
+  evidence: POST /stock_items createStockItem Create a stock item; GET /barcodes listBarcodes; GET /stock_item_plannings
+    List stock item plannings
+  reason: Individually tracked physical rental stock units with barcodes and their plannings — inventory
+    record management. L1 Inventory Management is well grounded; the L2 split between accuracy/tracking
+    and allocation is not resolvable from these summaries.
+- tag: Availability
+  spec_file: booqable-availability-api-openapi.yml
+  capability_id: BC-530
+  capability_id_l1: BC-530
+  capability_name: Inventory Management
+  confidence: 0.72
+  evidence: GET /inventory_availabilities Get inventory availabilities; GET /inventory_levels Get inventory
+    levels; GET /plannings List plannings
+  reason: Operations expose rental stock availability, inventory levels and reservation plannings — inventory
+    availability/allocation management for rentable stock. L1 Inventory Management is clear; the split
+    between stock-level visibility and reservation/allocation keeps the L2 ambiguous, so none asserted.

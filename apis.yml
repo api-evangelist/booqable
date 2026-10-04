@@ -262,6 +262,9 @@ apis:
   - type: OpenCollection
     url: collections/booqable.opencollection.json
 common:
+- type: CapabilityMap
+  url: capabilities/booqable-capability-edges.yml
+  name: Booqable Business Capability Map
 - type: AgenticAccess
   url: agentic-access/booqable-agentic-access.yml
 - type: TrustCenter
