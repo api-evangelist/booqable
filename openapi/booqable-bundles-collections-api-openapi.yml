@@ -113,18 +113,17 @@ paths:
                 $ref: '#/components/schemas/ResourceDocument'
 components:
   schemas:
-    Resource:
+    ResourceDocument:
       type: object
-      description: A JSON:API resource object.
+      description: A JSON:API document containing a single primary resource.
       properties:
-        type:
-          type: string
-        id:
-          type: string
-        attributes:
-          type: object
-          additionalProperties: true
-        relationships:
+        data:
+          $ref: '#/components/schemas/Resource'
+        included:
+          type: array
+          items:
+            $ref: '#/components/schemas/Resource'
+        meta:
           type: object
           additionalProperties: true
     ResourceCollection:
@@ -146,27 +145,20 @@ components:
         links:
           type: object
           additionalProperties: true
-    ResourceDocument:
+    Resource:
       type: object
-      description: A JSON:API document containing a single primary resource.
+      description: A JSON:API resource object.
       properties:
-        data:
-          $ref: '#/components/schemas/Resource'
-        included:
-          type: array
-          items:
-            $ref: '#/components/schemas/Resource'
-        meta:
+        type:
+          type: string
+        id:
+          type: string
+        attributes:
           type: object
           additionalProperties: true
-  requestBodies:
-    ResourceBody:
-      required: true
-      description: A JSON:API document wrapping the resource under a "data" member.
-      content:
-        application/vnd.api+json:
-          schema:
-            $ref: '#/components/schemas/ResourceDocument'
+        relationships:
+          type: object
+          additionalProperties: true
   parameters:
     Id:
       name: id
@@ -175,6 +167,14 @@ components:
       description: The UUID of the resource.
       schema:
         type: string
+  requestBodies:
+    ResourceBody:
+      required: true
+      description: A JSON:API document wrapping the resource under a "data" member.
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/ResourceDocument'
   securitySchemes:
     bearerAuth:
       type: http

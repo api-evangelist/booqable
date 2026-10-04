@@ -140,19 +140,6 @@ paths:
                 $ref: '#/components/schemas/ResourceDocument'
 components:
   schemas:
-    ResourceDocument:
-      type: object
-      description: A JSON:API document containing a single primary resource.
-      properties:
-        data:
-          $ref: '#/components/schemas/Resource'
-        included:
-          type: array
-          items:
-            $ref: '#/components/schemas/Resource'
-        meta:
-          type: object
-          additionalProperties: true
     Resource:
       type: object
       description: A JSON:API resource object.
@@ -184,6 +171,19 @@ components:
           description: Metadata such as total_count and pagination stats.
           additionalProperties: true
         links:
+          type: object
+          additionalProperties: true
+    ResourceDocument:
+      type: object
+      description: A JSON:API document containing a single primary resource.
+      properties:
+        data:
+          $ref: '#/components/schemas/Resource'
+        included:
+          type: array
+          items:
+            $ref: '#/components/schemas/Resource'
+        meta:
           type: object
           additionalProperties: true
   requestBodies:

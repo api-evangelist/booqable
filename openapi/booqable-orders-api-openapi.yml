@@ -117,32 +117,39 @@ paths:
         '422':
           $ref: '#/components/responses/UnprocessableEntity'
 components:
-  responses:
-    TooManyRequests:
-      description: Rate limit exceeded. "You're doing too many requests! Slow down!"
-      content:
-        application/vnd.api+json:
-          schema:
-            $ref: '#/components/schemas/ErrorDocument'
-    UnprocessableEntity:
-      description: The request was well-formed but failed validation.
-      content:
-        application/vnd.api+json:
-          schema:
-            $ref: '#/components/schemas/ErrorDocument'
-    Unauthorized:
-      description: Authentication is missing or invalid.
-      content:
-        application/vnd.api+json:
-          schema:
-            $ref: '#/components/schemas/ErrorDocument'
-    NotFound:
-      description: The requested resource does not exist.
-      content:
-        application/vnd.api+json:
-          schema:
-            $ref: '#/components/schemas/ErrorDocument'
   schemas:
+    ResourceDocument:
+      type: object
+      description: A JSON:API document containing a single primary resource.
+      properties:
+        data:
+          $ref: '#/components/schemas/Resource'
+        included:
+          type: array
+          items:
+            $ref: '#/components/schemas/Resource'
+        meta:
+          type: object
+          additionalProperties: true
+    ResourceCollection:
+      type: object
+      description: A JSON:API document containing a collection of resources.
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Resource'
+        included:
+          type: array
+          items:
+            $ref: '#/components/schemas/Resource'
+        meta:
+          type: object
+          description: Metadata such as total_count and pagination stats.
+          additionalProperties: true
+        links:
+          type: object
+          additionalProperties: true
     Resource:
       type: object
       description: A JSON:API resource object.
@@ -174,61 +181,7 @@ components:
                 type: string
               detail:
                 type: string
-    ResourceCollection:
-      type: object
-      description: A JSON:API document containing a collection of resources.
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/Resource'
-        included:
-          type: array
-          items:
-            $ref: '#/components/schemas/Resource'
-        meta:
-          type: object
-          description: Metadata such as total_count and pagination stats.
-          additionalProperties: true
-        links:
-          type: object
-          additionalProperties: true
-    ResourceDocument:
-      type: object
-      description: A JSON:API document containing a single primary resource.
-      properties:
-        data:
-          $ref: '#/components/schemas/Resource'
-        included:
-          type: array
-          items:
-            $ref: '#/components/schemas/Resource'
-        meta:
-          type: object
-          additionalProperties: true
-  requestBodies:
-    ResourceBody:
-      required: true
-      description: A JSON:API document wrapping the resource under a "data" member.
-      content:
-        application/vnd.api+json:
-          schema:
-            $ref: '#/components/schemas/ResourceDocument'
   parameters:
-    Include:
-      name: include
-      in: query
-      required: false
-      description: Comma-separated list of related resources to sideload (JSON:API include).
-      schema:
-        type: string
-    Id:
-      name: id
-      in: path
-      required: true
-      description: The UUID of the resource.
-      schema:
-        type: string
     PageNumber:
       name: page[number]
       in: query
@@ -247,6 +200,53 @@ components:
         type: integer
         minimum: 1
         default: 25
+    Include:
+      name: include
+      in: query
+      required: false
+      description: Comma-separated list of related resources to sideload (JSON:API include).
+      schema:
+        type: string
+    Id:
+      name: id
+      in: path
+      required: true
+      description: The UUID of the resource.
+      schema:
+        type: string
+  responses:
+    UnprocessableEntity:
+      description: The request was well-formed but failed validation.
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/ErrorDocument'
+    TooManyRequests:
+      description: Rate limit exceeded. "You're doing too many requests! Slow down!"
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/ErrorDocument'
+    NotFound:
+      description: The requested resource does not exist.
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/ErrorDocument'
+    Unauthorized:
+      description: Authentication is missing or invalid.
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/ErrorDocument'
+  requestBodies:
+    ResourceBody:
+      required: true
+      description: A JSON:API document wrapping the resource under a "data" member.
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/ResourceDocument'
   securitySchemes:
     bearerAuth:
       type: http
