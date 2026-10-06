@@ -54,7 +54,7 @@ tags_raw:
 - E-commerce
 - JSON:API
 created: '2026-07-03'
-modified: '2026-07-03'
+modified: '2026-10-06'
 specificationVersion: '0.23'
 apis:
 - aid: booqable:booqable-availability-api
@@ -262,6 +262,8 @@ apis:
   - type: OpenCollection
     url: collections/booqable.opencollection.json
 common:
+- url: https://booqable.com/feed.xml
+  type: BlogRSS
 - type: CapabilityMap
   url: capabilities/booqable-capability-edges.yml
   name: Booqable Business Capability Map
