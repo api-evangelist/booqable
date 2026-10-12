@@ -1,0 +1,495 @@
+generated: '2026-10-12'
+method: searched
+source:
+- https://zapier.com/apps/booqable/integrations
+- https://composio.dev/toolkits/booqable
+checked:
+- https://composio.dev/toolkits/booqable
+- https://monid.ai/tools/booqable
+- https://n8n.io/integrations/booqable/
+- https://zapier.com/apps/booqable/integrations
+summary: null
+marketplace_apps:
+- marketplace: zapier
+  channel: ipaas-listing
+  app: booqable
+  url: https://zapier.com/apps/booqable/integrations
+  external_url: https://booqable.com/
+  partner_tier: GOLD
+  triggers:
+  - key: completed_payment
+    label: Completed Payment
+  - key: created_customer
+    label: New Customer
+  - key: finalized_invoice
+    label: Finalize Invoice
+  - key: reserved_order
+    label: Reserved Order
+  - key: started_order
+    label: Started Order
+  - key: stopped_order
+    label: Stopped Order
+  - key: updated_order
+    label: Updated Order
+  actions:
+  - key: create_customer
+    label: Create Customer
+  - key: delete_customer
+    label: Delete Customer
+  - key: update_customer
+    label: Update Customer
+  searches:
+  - key: find_customer_by_id
+    label: Find Customer - By ID
+  - key: find_customer_by_name_or_email
+    label: Find Customer - By Name or Email
+  - key: find_order_by_id
+    label: Find Order - By ID
+- marketplace: composio
+  channel: agent-gateway
+  app: booqable
+  url: https://composio.dev/toolkits/booqable
+  identity: action-prefix
+  actions:
+  - key: BOOQABLE_CREATE_CUSTOMER
+  - key: BOOQABLE_CREATE_ORDER
+  - key: BOOQABLE_CREATE_PRODUCT_GROUP
+  - key: BOOQABLE_DELETE_CUSTOMER
+  - key: BOOQABLE_DELETE_ORDER
+  - key: BOOQABLE_DELETE_PRODUCT_GROUP
+  - key: BOOQABLE_GET_CUSTOMER
+  - key: BOOQABLE_GET_CUSTOMERS
+  - key: BOOQABLE_GET_INVENTORY_LEVELS
+  - key: BOOQABLE_GET_NEW_ORDER
+  - key: BOOQABLE_GET_ORDER
+  - key: BOOQABLE_GET_PRODUCT
+  - key: BOOQABLE_GET_PRODUCT_GROUP
+  - key: BOOQABLE_LIST_BARCODES
+  - key: BOOQABLE_LIST_BUNDLE_ITEMS
+  - key: BOOQABLE_LIST_CLUSTERS
+  - key: BOOQABLE_LIST_COUPONS
+  - key: BOOQABLE_LIST_DEFAULT_PROPERTIES
+  - key: BOOQABLE_LIST_DOCUMENTS
+  - key: BOOQABLE_LIST_EMAIL_TEMPLATES
+  - key: BOOQABLE_LIST_EMPLOYEES
+  - key: BOOQABLE_LIST_INVENTORY_BREAKDOWNS
+  - key: BOOQABLE_LIST_ITEMS
+  - key: BOOQABLE_LIST_LINES
+  - key: BOOQABLE_LIST_LOCATIONS
+  - key: BOOQABLE_LIST_NOTES
+  - key: BOOQABLE_LIST_ORDERS
+  - key: BOOQABLE_LIST_PAYMENTS
+  - key: BOOQABLE_LIST_PAYMENT_METHODS
+  - key: BOOQABLE_LIST_PHOTOS
+  - key: BOOQABLE_LIST_PLANNINGS
+  - key: BOOQABLE_LIST_PRICE_RULESETS
+  - key: BOOQABLE_LIST_PRICE_STRUCTURES
+  - key: BOOQABLE_LIST_PRODUCTS
+  - key: BOOQABLE_LIST_PRODUCT_GROUPS
+  - key: BOOQABLE_LIST_PROPERTIES
+  - key: BOOQABLE_LIST_PROVINCES
+  - key: BOOQABLE_LIST_STOCK_ITEMS
+  - key: BOOQABLE_LIST_STOCK_ITEM_PLANNINGS
+  - key: BOOQABLE_LIST_TAX_RATES
+  - key: BOOQABLE_LIST_TAX_VALUES
+  - key: BOOQABLE_LIST_USERS
+  - key: BOOQABLE_SEARCH_BUNDLES
+  - key: BOOQABLE_SEARCH_CUSTOMERS
+  - key: BOOQABLE_SEARCH_DOCUMENTS
+  - key: BOOQABLE_SEARCH_ITEMS
+  - key: BOOQABLE_SEARCH_ORDERS
+  - key: BOOQABLE_SEARCH_PLANNINGS
+  - key: BOOQABLE_UPDATE_COMPANIES
+edges:
+- partner_name: Gmail
+  partner: gmail
+  partner_match: name-exact
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/booqable/integrations/gmail
+  direction: third-party
+  category: Email
+  partner_url: https://mail.google.com/
+- partner_name: Google Calendar
+  partner: google-calendar
+  partner_match: name-exact
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/booqable/integrations/google-calendar
+  direction: third-party
+  category: Calendar
+  partner_url: https://calendar.google.com/
+- partner_name: QuickBooks Online
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/booqable/integrations/quickbooks
+  direction: third-party
+  category: Accounting
+  partner_url: http://intuit.com/
+- partner_name: Docusign
+  partner: docusign
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/booqable/integrations/docusign
+  direction: third-party
+  category: AI Document Extraction
+  partner_url: https://go.docusign.com/trial/us-goog-trynow-display-zapier/
+- partner_name: Xero
+  partner: xero
+  partner_match: name-exact
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/booqable/integrations/xero
+  direction: third-party
+  category: Accounting
+  partner_url: https://xero5440.partnerlinks.io/uvwuuwrxyoi8
+- partner_name: Square
+  partner: square
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/booqable/integrations/square
+  direction: third-party
+  category: eCommerce
+  partner_url: https://squareup.com/t/cmtp_performance/pr_developers/d_partnerships/p_zapier/?route=
+- partner_name: Mailchimp
+  partner: mailchimp
+  partner_match: name-exact
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/booqable/integrations/mailchimp
+  direction: third-party
+  category: Marketing Automation
+  partner_url: https://mailchimp.com/
+- partner_name: Microsoft Outlook
+  partner: microsoft-outlook
+  partner_match: name-exact
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/booqable/integrations/microsoft-outlook
+  direction: third-party
+  category: Calendar
+  partner_url: https://outlook.live.com/
+- partner_name: Slack
+  partner: slack
+  partner_match: name-exact
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/booqable/integrations/slack
+  direction: third-party
+  category: Team Chat
+  partner_url: https://slack.com/
+- partner_name: Notion
+  partner: notion
+  partner_match: name-exact
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/booqable/integrations/notion
+  direction: third-party
+  category: Task Management
+  partner_url: https://www.notion.so/
+- partner_name: WhatsApp Notifications
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/booqable/integrations/whatsapp-notifications
+  direction: third-party
+  category: Communication
+  partner_url: null
+- partner_name: Eventable
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/booqable/integrations/eventable
+  direction: third-party
+  category: Event Management
+  partner_url: https://www.eventable.com/
+- partner_name: Klaviyo
+  partner: klaviyo
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/booqable/integrations/klaviyo
+  direction: third-party
+  category: Marketing Automation
+  partner_url: https://www.klaviyo.com/
+- partner_name: Billit
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/booqable/integrations/billit
+  direction: third-party
+  category: Accounting
+  partner_url: https://www.billit.be/
+- partner_name: Wave
+  partner: wave-financial
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/booqable/integrations/wave
+  direction: third-party
+  category: Accounting
+  partner_url: https://www.waveapps.com/
+- partner_name: WooCommerce
+  partner: woocommerce
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/booqable/integrations/woocommerce
+  direction: third-party
+  category: eCommerce
+  partner_url: https://woocommerce.com/products/woocommerce-zapier/?utm_source=zapier&utm_medium=website&utm_campaign=integration
+- partner_name: Zoho Books
+  partner: zoho-books
+  partner_match: name-exact
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/booqable/integrations/zoho-books
+  direction: third-party
+  category: Accounting
+  partner_url: https://go.zoho.com/3Al
+- partner_name: eSignatures.com
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/booqable/integrations/esignaturescom
+  direction: third-party
+  category: Signatures
+  partner_url: https://esignatures.com/docs/zapier_guide
+- partner_name: Stripe (Legacy)
+  partner: stripe
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/booqable/integrations/stripe-legacy
+  direction: third-party
+  category: Payment Processing
+  partner_url: https://stripe.com/
+- partner_name: SignNow
+  partner: signnow
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/booqable/integrations/signnow
+  direction: third-party
+  category: Signatures
+  partner_url: https://www.signnow.com/
+- partner_name: Squarespace Forms
+  partner: squarespace
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/booqable/integrations/squarespace-forms
+  direction: third-party
+  category: Forms & Surveys
+  partner_url: https://www.squarespace.com/
+- partner_name: Shipday
+  partner: shipday
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/booqable/integrations/shipday
+  direction: third-party
+  category: Dashboards
+  partner_url: https://dispatch.shipday.com/
+- partner_name: Holded
+  partner: holded
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/booqable/integrations/holded
+  direction: third-party
+  category: CRM (Customer Relationship Management)
+  partner_url: http://holded.com/
+- partner_name: Tally
+  partner: tally
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/booqable/integrations/tally
+  direction: third-party
+  category: Forms & Surveys
+  partner_url: https://try.tally.so/zapier
+- partner_name: Omnisend
+  partner: omnisend
+  partner_match: name-exact
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/booqable/integrations/omnisend
+  direction: third-party
+  category: Marketing Automation
+  partner_url: https://omnisend.sjv.io/zapier
+- partner_name: Moneybird
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/booqable/integrations/moneybird
+  direction: third-party
+  category: Accounting
+  partner_url: https://www.moneybird.nl/
+- partner_name: Dubsado
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/booqable/integrations/dubsado
+  direction: third-party
+  category: CRM (Customer Relationship Management)
+  partner_url: https://www.dubsado.com/
+- partner_name: RingCentral
+  partner: ringcentral
+  partner_match: name-exact
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/booqable/integrations/ringcentral
+  direction: third-party
+  category: Phone & SMS
+  partner_url: http://www.ringcentral.com/
+- partner_name: Stripe
+  partner: stripe
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/booqable/integrations/stripe
+  direction: third-party
+  category: Payment Processing
+  partner_url: https://stripe.com/
+- partner_name: Google Slides
+  partner: google-slides
+  partner_match: name-exact
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/booqable/integrations/google-slides
+  direction: third-party
+  category: Documents
+  partner_url: https://www.google.com/slides/about/
+templates:
+- title: Create DocuSign signature requests for new reserved orders in Booqable
+  url: https://zapier.com/apps/booqable/integrations/docusign/1220832/create-docusign-signature-requests-for-new-reserved-orders-in-booqable
+  apps:
+  - booqable
+  - docusign
+- title: Finalize invoices in Booqable and create new sales invoices in Xero
+  url: https://zapier.com/apps/booqable/integrations/xero/1614151/finalize-invoices-in-booqable-and-create-new-sales-invoices-in-xero
+  apps:
+  - booqable
+  - xero
+- title: Add new Booqable customers to a Google Ads contact list
+  url: https://zapier.com/apps/booqable/integrations/google-ads/1622752/add-new-booqable-customers-to-a-google-ads-contact-list
+  apps:
+  - booqable
+  - google-ads
+- title: Create detailed events in Google Calendar for new reserved orders in Booqable
+  url: https://zapier.com/apps/booqable/integrations/google-calendar/1222248/create-detailed-events-in-google-calendar-for-new-reserved-orders-in-booqable
+  apps:
+  - booqable
+  - google-calendar
+- title: Send WhatsApp Notifications for every new reserved order in Booqable
+  url: https://zapier.com/apps/booqable/integrations/whatsapp-notifications/1581206/send-whatsapp-notifications-for-every-new-reserved-order-in-booqable
+  apps:
+  - booqable
+  - whatsapp-notifications
+- title: Update Google Sheets rows when new order updates occur in Booqable
+  url: https://zapier.com/apps/booqable/integrations/google-sheets/1585160/update-google-sheets-rows-when-new-order-updates-occur-in-booqable
+  apps:
+  - booqable
+  - google-sheets
+- title: Add new reserved orders in Booqable to eWaiverPro Digital Waivers
+  url: https://zapier.com/apps/booqable/integrations/ewaiverpro/255642030/add-new-reserved-orders-in-booqable-to-ewaiverpro-digital-waivers
+  apps:
+  - booqable
+  - ewaiverpro
+- title: Create new Booqable customers from new Jotform submissions
+  url: https://zapier.com/apps/booqable/integrations/jotform/1708705/create-new-booqable-customers-from-new-jotform-submissions
+  apps:
+  - jotform
+  - booqable
+- title: Create new Zoho Books customers from new Booqable customers
+  url: https://zapier.com/apps/booqable/integrations/zoho-books/1667082/create-new-zoho-books-customers-from-new-booqable-customers
+  apps:
+  - booqable
+  - zoho-books
+- title: Create WooCommerce orders from new reserved Booqable orders
+  url: https://zapier.com/apps/booqable/integrations/woocommerce/1393896/create-woocommerce-orders-from-new-reserved-booqable-orders
+  apps:
+  - booqable
+  - woocommerce
+- title: Create new Booqable customers from new inbound emails in Email by Zapier
+  url: https://zapier.com/apps/booqable/integrations/email/1570094/create-new-booqable-customers-from-new-inbound-emails-in-email-by-zapier
+  apps:
+  - email
+  - booqable
+- title: Add new Booqable customers to Mailchimp as subscribers instantly
+  url: https://zapier.com/apps/booqable/integrations/mailchimp/1231632/add-new-booqable-customers-to-mailchimp-as-subscribers-instantly
+  apps:
+  - booqable
+  - mailchimp
+template_total: 280
