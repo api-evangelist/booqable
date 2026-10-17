@@ -126,6 +126,20 @@ components:
         meta:
           type: object
           additionalProperties: true
+    Resource:
+      type: object
+      description: A JSON:API resource object.
+      properties:
+        type:
+          type: string
+        id:
+          type: string
+        attributes:
+          type: object
+          additionalProperties: true
+        relationships:
+          type: object
+          additionalProperties: true
     ResourceCollection:
       type: object
       description: A JSON:API document containing a collection of resources.
@@ -143,20 +157,6 @@ components:
           description: Metadata such as total_count and pagination stats.
           additionalProperties: true
         links:
-          type: object
-          additionalProperties: true
-    Resource:
-      type: object
-      description: A JSON:API resource object.
-      properties:
-        type:
-          type: string
-        id:
-          type: string
-        attributes:
-          type: object
-          additionalProperties: true
-        relationships:
           type: object
           additionalProperties: true
   parameters:

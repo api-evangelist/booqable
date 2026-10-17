@@ -101,6 +101,20 @@ components:
         meta:
           type: object
           additionalProperties: true
+    Resource:
+      type: object
+      description: A JSON:API resource object.
+      properties:
+        type:
+          type: string
+        id:
+          type: string
+        attributes:
+          type: object
+          additionalProperties: true
+        relationships:
+          type: object
+          additionalProperties: true
     ResourceCollection:
       type: object
       description: A JSON:API document containing a collection of resources.
@@ -120,30 +134,7 @@ components:
         links:
           type: object
           additionalProperties: true
-    Resource:
-      type: object
-      description: A JSON:API resource object.
-      properties:
-        type:
-          type: string
-        id:
-          type: string
-        attributes:
-          type: object
-          additionalProperties: true
-        relationships:
-          type: object
-          additionalProperties: true
   parameters:
-    PageNumber:
-      name: page[number]
-      in: query
-      required: false
-      description: The page number to return (JSON:API pagination).
-      schema:
-        type: integer
-        minimum: 1
-        default: 1
     PageSize:
       name: page[size]
       in: query
@@ -153,18 +144,27 @@ components:
         type: integer
         minimum: 1
         default: 25
-    Include:
-      name: include
-      in: query
-      required: false
-      description: Comma-separated list of related resources to sideload (JSON:API include).
-      schema:
-        type: string
     Id:
       name: id
       in: path
       required: true
       description: The UUID of the resource.
+      schema:
+        type: string
+    PageNumber:
+      name: page[number]
+      in: query
+      required: false
+      description: The page number to return (JSON:API pagination).
+      schema:
+        type: integer
+        minimum: 1
+        default: 1
+    Include:
+      name: include
+      in: query
+      required: false
+      description: Comma-separated list of related resources to sideload (JSON:API include).
       schema:
         type: string
   requestBodies:
