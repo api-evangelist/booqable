@@ -504,3 +504,16 @@
       lapsed: null
   status: not-a-workflow
   arazzo: null
+- slug: booqable-xero-own
+  label: Xero (own)
+  partner: xero
+  partner_name: Xero (own)
+  category: Ecommerce
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  evidence: https://apps.xero.com/nz/app/booqable
+  source: edge
+  relationship: platform-app
+  status: not-a-workflow
+  arazzo: null

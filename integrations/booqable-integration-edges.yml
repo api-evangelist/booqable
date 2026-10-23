@@ -18,6 +18,7 @@ checked:
 - https://stripe.com/partners/directory
 - https://stripe.com/partners/verified-partners
 - https://stripe.partners/sitemap.xml
+- xero/integrations/xero-integration-edges.yml
 summary: null
 marketplace_apps:
 - marketplace: zapier
@@ -573,6 +574,25 @@ edges:
       lapsed: null
   detected_by: sweep-stripe-app-marketplace.py
   first_seen: '2026-10-21'
+- partner_name: Xero (own)
+  partner: xero
+  partner_match: mirror
+  mirror_match: domain
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: own
+  evidence: https://apps.xero.com/nz/app/booqable
+  mirror_of: xero/integrations/xero-integration-edges.yml
+  apps:
+  - Booqable
+  listing_count: 1
+  detected: '2026-10-23'
+  detected_by: mirror-platform-listings.py
+  category: Ecommerce
+  features:
+  - Sign Up with Xero
 templates:
 - title: Create DocuSign signature requests for new reserved orders in Booqable
   url: https://zapier.com/apps/booqable/integrations/docusign/1220832/create-docusign-signature-requests-for-new-reserved-orders-in-booqable
